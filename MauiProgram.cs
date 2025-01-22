@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CAMAUIGardenCentreApp.Services;
+using CAMAUIGardenCentreApp.Views;
+using Microsoft.Extensions.Logging;
 
 namespace CAMAUIGardenCentreApp
 {
@@ -18,6 +20,11 @@ namespace CAMAUIGardenCentreApp
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddTransient<AuthService>();
+            builder.Services.AddTransient<LoadingPage>();
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<ProfilePage>();
 
             return builder.Build();
         }
