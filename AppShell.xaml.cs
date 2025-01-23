@@ -8,7 +8,6 @@ namespace CAMAUIGardenCentreApp
         {
             InitializeComponent();
 
-
             Routing.RegisterRoute(nameof(ListingPage), typeof(ListingPage));
             Routing.RegisterRoute(nameof(LoadingPage), typeof(LoadingPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
