@@ -29,6 +29,6 @@ public partial class ProductListPage : ContentPage
 
     private void LoadProducts(int categoryId)
     {
-        _viewModel.LoadProductsByCategory(categoryId);
+        _viewModel.LoadProductsByCategoryAsync(categoryId);
     }
 }

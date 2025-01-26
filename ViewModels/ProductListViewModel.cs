@@ -8,32 +8,39 @@ using System.Threading.Tasks;
 using CAMAUIGardenCentreApp.Data;
 using CAMAUIGardenCentreApp.Models;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 
+using CAMAUIGardenCentreApp.Views;
+using CAMAUIGardenCentreApp.Services;
 
 namespace CAMAUIGardenCentreApp.ViewModels;
 
-public partial class ProductListViewModel : ObservableObject
+
+public partial class ProductListViewModel : BaseViewModel
 {
-    private readonly DatabaseContext _context;
+    private readonly ProductService _productService;
+    private readonly BasketService _basketService;
 
 
-    public ProductListViewModel(DatabaseContext context)
+    public ProductListViewModel(ProductService productService, BasketService basketService)
     {
-        _context = context;
+        _productService = productService;
+        _basketService = basketService;
     }
 
 
     [ObservableProperty]
-    private bool _isBusy;
-
-    [ObservableProperty]
-    private string _busyText;
-
-    [ObservableProperty]
     private ObservableCollection<Product> _products = new();
 
+    [ObservableProperty]
+    private bool _hasItemsInCart;
 
-    public async Task LoadProductsByCategory(int categoryId)
+    [ObservableProperty]
+    private int _cartItemCount;
+
+
+
+    public async Task LoadProductsByCategoryAsync(int categoryId)
     {
 
         //await _loadingService.ShowLoadingWhile(async () =>
@@ -45,7 +52,7 @@ public partial class ProductListViewModel : ObservableObject
             IsBusy = true;
             Products.Clear();
 
-            var products = await _context.GetFileteredAsync<Product>(p => p.CategoryId == categoryId);
+            var products = await _productService.GetProductsByCategoryId(categoryId);
             if (products is not null && products.Any())
             {
                 Products ??= new ObservableCollection<Product>();
@@ -56,29 +63,38 @@ public partial class ProductListViewModel : ObservableObject
                 }
             }
 
+            UpdateBasket();
+
             IsBusy = false;
 
         }, "Fetching products...");
     }
 
-
-    private async Task ExecuteAsync(Func<Task> operation, string? busyText = null)
+    [RelayCommand]
+    private async Task AddToCartAsync(Product product)
     {
-        IsBusy = true;
-        BusyText = busyText ?? "Processing...";
-        try
-        {
-            await operation?.Invoke();
-        }
-        catch (Exception ex)
-        {
-            await Shell.Current.DisplayAlert("Error", $" {ex.Message}", "OK");
-        }
-        finally
-        {
-            IsBusy = false;
-            BusyText = "Processing...";
-        }
+        if (product is null)
+            return;
+
+        _basketService.AddToCart(product);
+
+        // Update floating basket menu status 
+        UpdateBasket();
+
+        await Shell.Current.DisplayAlert("Basket", $"{product.Name} added to basket!", "OK");
+    }
+
+    private void UpdateBasket()
+    {
+        // Update floating basket menu status 
+        HasItemsInCart = _basketService.GetCartItems().Any();
+        CartItemCount = _basketService.GetCartItems().Count();
+    }
+
+    [RelayCommand]
+    private async Task GoToCartAsync()
+    {
+        await Shell.Current.GoToAsync(nameof(BasketPage));
     }
 
 }

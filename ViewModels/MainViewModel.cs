@@ -11,14 +11,14 @@ namespace CAMAUIGardenCentreApp.ViewModels;
 public partial class MainViewModel : BaseViewModel
 {
     private readonly ProductService _productService;
-    private readonly BasketService _cartService;
+    private readonly BasketService _basketService;
     private readonly LoadingService _loadingService;
 
 
-    public MainViewModel(ProductService productService, BasketService cartService, LoadingService loadingService)
+    public MainViewModel(ProductService productService, BasketService basketService, LoadingService loadingService)
     {
         _productService = productService;
-        _cartService = cartService;
+        _basketService = basketService;
         _loadingService = loadingService;
     }
 
@@ -45,6 +45,8 @@ public partial class MainViewModel : BaseViewModel
                 Products = new ObservableCollection<Product>(products);
             }
         }, "Fetching products...");
+
+        UpdateBasket();
     }
 
     [RelayCommand]
@@ -53,13 +55,19 @@ public partial class MainViewModel : BaseViewModel
         if (product is null)
             return;
 
-        _cartService.AddToCart(product);
+        _basketService.AddToCart(product);
 
         // Update floating basket menu status 
-        HasItemsInCart = _cartService.GetCartItems().Any();
-        CartItemCount = _cartService.GetCartItems().Count();
+        UpdateBasket();
 
         await Shell.Current.DisplayAlert("Basket", $"{product.Name} added to basket!", "OK");
+    }
+
+    private void UpdateBasket()
+    {
+        // Update floating basket menu status 
+        HasItemsInCart = _basketService.GetCartItems().Any();
+        CartItemCount = _basketService.GetCartItems().Count();
     }
 
 

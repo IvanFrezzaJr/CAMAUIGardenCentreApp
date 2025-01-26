@@ -41,7 +41,7 @@ public partial class CategoryViewModel : ObservableObject
             var categories = await _context.GetAllAsync<Category>();
             if (categories is not null && categories.Any())
             {
-                Categories ??= new ObservableCollection<Category>();
+                Categories = new ObservableCollection<Category>();
 
                 foreach (var product in categories)
                 {
