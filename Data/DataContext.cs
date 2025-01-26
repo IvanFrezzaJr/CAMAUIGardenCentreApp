@@ -113,7 +113,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 25.99m,
                         Quantity = 50,
                         CategoryId = 1,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/MonsteraDeliciosa.jpg"
+                        ImageUrl = "monstera_deliciosa.png"
                     },
                     new Product
                     {
@@ -121,7 +121,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 20.99m,
                         Quantity = 30,
                         CategoryId = 1,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/SnakePlantSansevieria.jpg"
+                        ImageUrl = "anake_plant_sansevieria.png"
                     },
                     new Product
                     {
@@ -129,7 +129,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 15.50m,
                         Quantity = 70,
                         CategoryId = 1,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/LavenderPlant.jpg"
+                        ImageUrl = "lavender_plant.png"
                     },
                     new Product
                     {
@@ -137,7 +137,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 40.99m,
                         Quantity = 120,
                         CategoryId = 1,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/BonsaiTreeFicusRetusa.jpg"
+                        ImageUrl = "bonsai_tree_ficus_retusa.png"
                     },
                     new Product
                     {
@@ -145,7 +145,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 30.50m,
                         Quantity = 60,
                         CategoryId = 1,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/OrchidPhalaenopsis.jpg"
+                        ImageUrl = "orchid_phalaenopsis.png"
                     },
                     new Product
                     {
@@ -153,7 +153,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 18.50m,
                         Quantity = 60,
                         CategoryId = 2,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/GardenPruningShears.jpg"
+                        ImageUrl = "garden_pruning_shears.png"
                     },
                     new Product
                     {
@@ -161,7 +161,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 12.50m,
                         Quantity = 20,
                         CategoryId = 2,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/StainlessSteelTrowel.jpg"
+                        ImageUrl = "stainless_steel_trowel.png"
                     },
                     new Product
                     {
@@ -169,7 +169,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 10.50m,
                         Quantity = 60,
                         CategoryId = 2,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/HandRake.jpg"
+                        ImageUrl = "hand_rake.png"
                     },
                     new Product
                     {
@@ -177,7 +177,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 25.50m,
                         Quantity = 40,
                         CategoryId = 2,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/GardenHoe.jpg"
+                        ImageUrl = "garden_hoe.png"
                     },
                     new Product
                     {
@@ -185,7 +185,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 22.50m,
                         Quantity = 100,
                         CategoryId = 2,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/MultipurposeGardenKnife.jpg"
+                        ImageUrl = "multipurpose_garden_knife.png"
                     },
                     new Product
                     {
@@ -193,7 +193,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 30.50m,
                         Quantity = 10,
                         CategoryId = 3,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/OrganicFertilizer.jpg"
+                        ImageUrl = "organic_fertilizer.png"
                     },
                     new Product
                     {
@@ -201,7 +201,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 45.50m,
                         Quantity = 120,
                         CategoryId = 3,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/CompostBin.jpg"
+                        ImageUrl = "compost_bin.png"
                     },
                     new Product
                     {
@@ -209,7 +209,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 35.50m,
                         Quantity = 100,
                         CategoryId = 3,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/DripIrrigationKit.jpg"
+                        ImageUrl = "drip_irrigation_kit.png"
                     },
                     new Product
                     {
@@ -217,7 +217,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 15.50m,
                         Quantity = 75,
                         CategoryId = 3,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/NaturalPestRepellentSpray.jpg"
+                        ImageUrl = "natural_pest_repellent_spray.png"
                     },
                     new Product
                     {
@@ -225,7 +225,7 @@ namespace CAMAUIGardenCentreApp.Data
                         Price = 25.50m,
                         Quantity = 25,
                         CategoryId = 3,
-                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/MulchBag.jpg"
+                        ImageUrl = "mulch_bag.png"
                     }
 
                 };

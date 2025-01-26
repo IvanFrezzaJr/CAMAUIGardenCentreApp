@@ -21,8 +21,18 @@ namespace CAMAUIGardenCentreApp.Models
         [Column("category_id")]
         public int CategoryId { get; set; }
 
-        [Column("image_url")]
-        public string ImageUrl { get; set; }
 
+        private string _imageUrl;
+
+        [Column("image_url")]
+        public string ImageUrl {
+            get {
+                return _imageUrl;
+            }
+            set
+            {
+                _imageUrl = value; //Path.Combine(FileSystem.AppDataDirectory, value);
+            } 
+        }
     }
 }
