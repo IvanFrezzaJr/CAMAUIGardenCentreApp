@@ -10,19 +10,17 @@ namespace CAMAUIGardenCentreApp.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    private readonly DatabaseContext _context;
+    private readonly ProductService _productService;
     private readonly CartService _cartService;
     private readonly LoadingService _loadingService;
 
 
-    public MainViewModel(DatabaseContext context, CartService cartService, LoadingService loadingService)
+    public MainViewModel(ProductService productService, CartService cartService, LoadingService loadingService)
     {
-        _context = context;
+        _productService = productService;
         _cartService = cartService;
         _loadingService = loadingService;
     }
-
-
 
 
     [ObservableProperty]
@@ -49,15 +47,10 @@ public partial class MainViewModel : ObservableObject
         //await _loadingService.ShowLoadingWhile(async () =>
         await ExecuteAsync(async () =>
         {
-            var products = await _context.GetAllAsync<Product>();
-            if (products is not null && products.Any())
+            var products = await _productService.GetAllProductsAsync();
+            if (products?.Any() == true)
             {
-                Products ??= new ObservableCollection<Product>();
-
-                foreach (var product in products)
-                {
-                    Products.Add(product);
-                }
+                Products = new ObservableCollection<Product>(products);
             }
         }, "Fetching products...");
     }
@@ -77,23 +70,6 @@ public partial class MainViewModel : ObservableObject
         await Shell.Current.DisplayAlert("Carrinho", $"{product.Name} foi adicionado ao carrinho!", "OK");
     }
 
-
-    [RelayCommand]
-    private async Task DeleteProductAsync(int id)
-    {
-        await ExecuteAsync(async () =>
-        {
-            if (await _context.DeleteItemByKeyAsync<Product>(id))
-            {
-                var product = Products.FirstOrDefault(p => p.Id == id);
-                Products.Remove(product);
-            }
-            else
-            {
-                await Shell.Current.DisplayAlert("Delete Error", "Product was not deleted", "Ok");
-            }
-        }, "Deleting product...");
-    }
 
     [RelayCommand]
     private async Task GoToCartAsync()
