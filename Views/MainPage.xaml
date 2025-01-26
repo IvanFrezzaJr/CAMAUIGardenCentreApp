@@ -2,11 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:CAMAUIGardenCentreApp.Models"
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
-             x:DataType="vm:ProductsViewModel"
+             x:DataType="vm:MainViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.MainPage">
 
     <Grid>
-        <!-- Lista de Produtos -->
+        <!-- Product List -->
         <CollectionView Grid.Row="0"
                         ItemsSource="{Binding Products}">
             <CollectionView.ItemsLayout>
@@ -35,7 +35,7 @@
                                 HeightRequest="25"
                                 FontSize="12"
                                 CornerRadius="2"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductsViewModel}}, Path=AddToCartCommand}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=AddToCartCommand}"
                                 CommandParameter="{Binding}" />
                     </Grid>
                 </DataTemplate>
@@ -55,7 +55,7 @@
             </CollectionView.EmptyView>
         </CollectionView>
 
-        <!-- Botão Flutuante -->
+        <!-- Cart button -->
         <Border Background="DarkOrange"
                 StrokeShape="RoundRectangle 30"
                 Padding="10"

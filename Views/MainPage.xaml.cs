@@ -8,10 +8,10 @@ public partial class MainPage : ContentPage
 {
 
     private readonly AuthService _authService;
-    private readonly ProductsViewModel _viewModel;
+    private readonly MainViewModel _viewModel;
 
 
-    public MainPage(AuthService authService, ProductsViewModel viewModel)
+    public MainPage(AuthService authService, MainViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

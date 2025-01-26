@@ -18,10 +18,8 @@ public partial class SplashPage : ContentPage
 
     private async Task InitializeApp()
     {
-        await Task.Delay(2000); // Simula um pequeno atraso
-        await _initializer.InitializeAsync(); // Inicializa o banco de dados
+        await _initializer.InitializeAsync();
 
-        // Navega para a página principal
         Application.Current.MainPage = new AppShell();
     }
 }

@@ -8,14 +8,14 @@ using System.Collections.ObjectModel;
 
 namespace CAMAUIGardenCentreApp.ViewModels;
 
-public partial class ProductsViewModel : ObservableObject
+public partial class MainViewModel : ObservableObject
 {
     private readonly DatabaseContext _context;
     private readonly CartService _cartService;
     private readonly LoadingService _loadingService;
 
 
-    public ProductsViewModel(DatabaseContext context, CartService cartService, LoadingService loadingService)
+    public MainViewModel(DatabaseContext context, CartService cartService, LoadingService loadingService)
     {
         _context = context;
         _cartService = cartService;
