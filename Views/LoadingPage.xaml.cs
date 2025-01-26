@@ -5,6 +5,7 @@ namespace CAMAUIGardenCentreApp.Views;
 public partial class LoadingPage : ContentPage
 {
     private readonly AuthService _authService;
+    public string DestinationPage { get; set; }
 
     public LoadingPage(AuthService authService)
     {
@@ -16,16 +17,20 @@ public partial class LoadingPage : ContentPage
     {
         base.OnNavigatedTo(args);
 
-        if (await _authService.IsAuthenticatedAsync())
+        // Simulação de carregamento
+        await Task.Delay(2000);
+
+        // Decide para onde ir após o carregamento
+        if (!string.IsNullOrEmpty(DestinationPage))
         {
-            // User is logged in
-            // redirect to main page
+            await Shell.Current.GoToAsync($"//{DestinationPage}");
+        }
+        else if (await _authService.IsAuthenticatedAsync())
+        {
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
         else
         {
-            // User is not logged in 
-            // Redirect to LoginPage
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }

@@ -24,18 +24,26 @@ namespace CAMAUIGardenCentreApp
 #endif
 
             // register services
-            //builder.Services.AddSingleton<DatabaseService>();
-
-            // register ViewModels
             builder.Services.AddSingleton<DatabaseContext>();
             builder.Services.AddSingleton<DatabaseInitializer>();
-            builder.Services.AddSingleton<ProductsViewModel>();
+            builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddSingleton<CartService>();
+            builder.Services.AddSingleton<LoadingService>();
+
+            // register ViewModels
+            builder.Services.AddTransient<ProductsViewModel>();
+            builder.Services.AddTransient<CartViewModel>();
+            builder.Services.AddTransient<CheckoutViewModel>();
+            builder.Services.AddTransient<CategoryViewModel>();
+            builder.Services.AddTransient<ProductListViewModel>();
 
             // register pages
-            builder.Services.AddTransient<AuthService>();
             builder.Services.AddTransient<LoadingPage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddTransient<CheckoutPage>();
+            builder.Services.AddTransient<SuccessPage>();
+            builder.Services.AddTransient<CategoryPage>();
 
 
             return builder.Build();

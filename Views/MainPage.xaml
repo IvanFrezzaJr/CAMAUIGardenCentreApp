@@ -1,60 +1,89 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:CAMAUIGardenCentreApp.Models"
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
              x:DataType="vm:ProductsViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.MainPage">
 
-    <CollectionView Grid.Row="0"
-             ItemsSource="{Binding Products}">
+    <Grid>
+        <!-- Lista de Produtos -->
+        <CollectionView Grid.Row="0"
+                        ItemsSource="{Binding Products}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
 
-        <CollectionView.ItemsLayout>
-            <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
-        </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Product">
+                    <Grid RowDefinitions="Auto, Auto"
+                          ColumnDefinitions="*, Auto"
+                          RowSpacing="5"
+                          Padding="5">
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Text="{Binding Name}"
+                               FontAttributes="Bold" />
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Text="{Binding Price, StringFormat='Price: {0:C}'}"
+                               FontSize="12"
+                               FontAttributes="Bold" />
 
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="model:Product">
-                <Grid RowDefinitions="Auto, Auto"
-                              ColumnDefinitions="*, Auto"
-                              RowSpacing="5"
-                              Padding="5"
-                              BackgroundColor="#ECECEC">
-                    <Label Grid.Row="0"
-                                   Grid.Column="0"
-                                   Text="{Binding Name}"
-                                   FontAttributes="Bold" />
-                    <Label Grid.Row="1"
-                                   Grid.Column="0"
-                                   Text="{Binding Price, StringFormat='Price: {0}'}"
-                                   FontSize="12"
-                                   FontAttributes="Bold" />
+                        <Button Grid.Row="0"
+                                Grid.Column="1"
+                                Text="Add to Cart"
+                                HeightRequest="25"
+                                FontSize="12"
+                                CornerRadius="2"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductsViewModel}}, Path=AddToCartCommand}"
+                                CommandParameter="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
 
-                    <Button Grid.Row="0"
-                                    Grid.Column="1"
-                                    Text="Edit"
-                                    Padding="0"
-                                    HeightRequest="25"
-                                    FontSize="12"
-                                    CornerRadius="2"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductsViewModel}}, Path=SetOperatingProductCommand}"
-                                    CommandParameter="{Binding .}"/>
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <VerticalStackLayout HorizontalOptions="Center"
+                                         VerticalOptions="Center">
+                        <Label Text="No Products Found"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Try creating a product from the form below"/>
+                    </VerticalStackLayout>
+                </ContentView>
+            </CollectionView.EmptyView>
+        </CollectionView>
 
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-        <CollectionView.EmptyView>
-            <ContentView>
-                <VerticalStackLayout HorizontalOptions="Center"
-                                             VerticalOptions="Center">
-                    <Label Text="No Products Found"
-                                   FontSize="18"
-                                   FontAttributes="Bold"
-                                   HorizontalTextAlignment="Center"/>
-                    <Label Text="Try creating a product from the form below"/>
-                </VerticalStackLayout>
-            </ContentView>
-        </CollectionView.EmptyView>
-    </CollectionView>
+        <!-- Botão Flutuante -->
+        <Border Background="DarkOrange"
+                StrokeShape="RoundRectangle 30"
+                Padding="10"
+                StrokeThickness="0"
+                VerticalOptions="End"
+                HorizontalOptions="FillAndExpand"
+                Margin="20"
+                IsVisible="{Binding HasItemsInCart}">
+            <StackLayout Orientation="Horizontal"
+                         VerticalOptions="Center"
+                         HorizontalOptions="FillAndExpand"
+                         Padding="10">
 
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToCartCommand}" />
+                </StackLayout.GestureRecognizers>
+                
+                <Label Text="{Binding CartItemCount, StringFormat='You have {0} items in your Cart.'}"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       FontSize="14"
+                       TextColor="White" 
+                       HorizontalOptions="FillAndExpand"/>
+                <ImageButton Source="cart_icon.png"
+                             WidthRequest="30"
+                             HeightRequest="30"
+                             BackgroundColor="Transparent"/>
+            </StackLayout>
+        </Border>
+    </Grid>
 </ContentPage>

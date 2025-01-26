@@ -1,8 +1,8 @@
 namespace CAMAUIGardenCentreApp.Views;
 
-public partial class ListingPage : ContentPage
+public partial class SuccessPage : ContentPage
 {
-	public ListingPage()
+	public SuccessPage()
 	{
 		InitializeComponent();
 	}

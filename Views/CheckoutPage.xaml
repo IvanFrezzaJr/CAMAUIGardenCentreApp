@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:CAMAUIGardenCentreApp.Models"
+             xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
+             x:DataType="vm:CheckoutViewModel"
+             x:Class="CAMAUIGardenCentreApp.Views.CheckoutPage"
+             Title="Checkout">
+
+    <Grid Padding="10">
+        <CollectionView ItemsSource="{Binding CartItems}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:CartItem">
+                    <VerticalStackLayout Padding="10">
+                        <Label Text="{Binding Product.Name}"
+                               FontAttributes="Bold"
+                               FontSize="16"/>
+
+                        <Label Text="{Binding Product.Price, StringFormat='Price: {0:C}'}"
+                               FontSize="14"
+                               TextColor="Gray"/>
+
+            
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Total Section -->
+        <VerticalStackLayout VerticalOptions="End" Padding="10">
+            <BoxView HeightRequest="2" BackgroundColor="Black"/>
+            <HorizontalStackLayout Spacing="10"
+                       VerticalOptions="Center">
+                <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       Padding="10"/>
+                <Button Text="Pay"
+                         Command="{Binding GoToPayCommand}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

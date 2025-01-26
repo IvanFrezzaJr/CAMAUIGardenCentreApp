@@ -14,6 +14,7 @@ public class DatabaseInitializer
 
     public async Task InitializeAsync()
     {
-        await _context.InitProduct(); // Inicializa o banco
+        await _context.InitCategory(); // Init category
+        await _context.InitProduct(); // Init product
     }
 }

@@ -101,11 +101,11 @@ namespace CAMAUIGardenCentreApp.Data
        
         public async Task InitProduct()
         {
-            var produtosExistentes = await GetAllAsync<Product>();
+            var productExists = await GetAllAsync<Product>();
 
-            if (!produtosExistentes.Any())
+            if (!productExists.Any())
             {
-                var produtos = new List<Product>
+                var product = new List<Product>
                 {
                     new Product
                     {
@@ -149,12 +149,43 @@ namespace CAMAUIGardenCentreApp.Data
                     }
                 };
 
-                foreach (var produto in produtos)
+                foreach (var produto in product)
                 {
                     await AddItemAsync(produto);
                 }
             }
         }
+
+
+        public async Task InitCategory()
+        {
+            var categoryExists = await GetAllAsync<Category>();
+
+            if (!categoryExists.Any())
+            {
+                var product = new List<Category>
+                {
+                    new Category
+                    {
+                        Name = "Plants"
+                    },
+                    new Category
+                    {
+                        Name = "Tools"
+                    },
+                    new Category
+                    {
+                        Name = "Garden Care"
+                    }
+                };
+
+                foreach (var prod in product)
+                {
+                    await AddItemAsync(prod);
+                }
+            }
+        }
+
 
         public async ValueTask DisposeAsync() => await _connection?.CloseAsync();
 
