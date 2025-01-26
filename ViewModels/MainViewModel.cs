@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace CAMAUIGardenCentreApp.ViewModels;
 
-public partial class MainViewModel : ObservableObject
+public partial class MainViewModel : BaseViewModel
 {
     private readonly ProductService _productService;
     private readonly CartService _cartService;
@@ -26,14 +26,6 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<Product> _products = new();
 
-    [ObservableProperty]
-    private Product _operatingProduct = new();
-
-    [ObservableProperty]
-    private bool _isBusy;
-
-    [ObservableProperty]
-    private string _busyText;
 
     [ObservableProperty]
     private bool _hasItemsInCart;
@@ -75,24 +67,5 @@ public partial class MainViewModel : ObservableObject
     private async Task GoToCartAsync()
     {
         await Shell.Current.GoToAsync(nameof(CartPage));
-    }
-
-    private async Task ExecuteAsync(Func<Task> operation, string? busyText = null)
-    {
-        IsBusy = true;
-        BusyText = busyText ?? "Processing...";
-        try
-        {
-            await operation?.Invoke();
-        }
-        catch (Exception ex)
-        {
-            await Shell.Current.DisplayAlert("Error", $" {ex.Message}", "OK");
-        }
-        finally
-        {
-            IsBusy = false;
-            BusyText = "Processing...";
-        }
     }
 }
