@@ -7,62 +7,70 @@
              x:Class="CAMAUIGardenCentreApp.Views.BasketPage"
              Title="Shopping Cart">
 
-    <Grid Padding="10">
-        <CollectionView ItemsSource="{Binding CartItems}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical"/>
-            </CollectionView.ItemsLayout>
+    <VerticalStackLayout Padding="10">
 
+        <Label Text="Shopping Basket" FontSize="24" FontAttributes="Bold"/>
+
+
+
+        <CollectionView x:Name="BasketItemsCollectionView" ItemsSource="{Binding CartItems}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:CartItem">
-                    <VerticalStackLayout Padding="10">
-                        <Label Text="{Binding Product.Name}"
-                               FontAttributes="Bold"
-                               FontSize="16"/>
 
-                        <Label Text="{Binding Product.Price, StringFormat='Price: {0:C}'}"
-                               FontSize="14"
-                               TextColor="Gray"/>
+                    <Grid Padding="10" ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto">
 
-                        <HorizontalStackLayout Spacing="10"
-                                               VerticalOptions="Center">
-                            <Button Text="-"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=DecreaseQuantityCommand}"
-                                    CommandParameter="{Binding Product}"/>
+                        <!-- Product Name -->
+                        <Label 
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Text="{Binding Product.Name}"
+                            FontSize="16"
+                            VerticalOptions="Center"/>
 
-                            <Label Text="{Binding Quantity}"
-                                   FontSize="16"
-                                   FontAttributes="Bold"
-                                   HorizontalTextAlignment="Center"
-                                   WidthRequest="40"/>
+                        <!-- Unit Price -->
+                        <Label
+                             Grid.Row="1"
+                             Grid.Column="0"
+                            Text="{Binding Product.Price, StringFormat='Price: {0:C}'}"
+                            FontSize="12"/>
 
-                            <Button Text="+"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=IncreaseQuantityCommand}"
-                                    CommandParameter="{Binding Product}"/>
+                        <HorizontalStackLayout 
+                            Grid.Column="1"
+                            HorizontalOptions="Center">
+                            <Button 
+                                Text="-"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=DecreaseQuantityCommand}"
+                                CommandParameter="{Binding Product}"/>
+
+                            <Label 
+                                Text="{Binding Quantity}"
+                                FontSize="16"
+                                Padding="10,0"/>
+
+                            <Button 
+                                Text="+"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=IncreaseQuantityCommand}"
+                                CommandParameter="{Binding Product}"/>
                         </HorizontalStackLayout>
 
-                        <Button Text="Remove Item" 
+
+                        
+                        <Button 
+                            Grid.Column="3"
+                            Text="Remove" 
                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=RemoveItemCommand}"
                              CommandParameter="{Binding Product}"/>
 
-                    </VerticalStackLayout>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
         <!-- Total Section -->
-        <VerticalStackLayout VerticalOptions="End" Padding="10">
-            <BoxView HeightRequest="2" BackgroundColor="Black"/>
-            <HorizontalStackLayout Spacing="10"
-                       VerticalOptions="Center">
-                <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
-                       FontSize="18"
-                       FontAttributes="Bold"
-                       HorizontalTextAlignment="Center"
-                       Padding="10"/>
-                <Button Text="Checkout"
-                         Command="{Binding GoToCheckoutCommand}"/>
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
-    </Grid>
+        <Label Text="Total: " FontSize="20" FontAttributes="Bold"/>
+        <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
+               FontSize="20" FontAttributes="Bold" TextColor="Green"/>
+        
+        <Button Text="Checkout" Command="{Binding GoToCheckoutCommand}"/>
+    </VerticalStackLayout>
 </ContentPage>

@@ -15,7 +15,7 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Category">
-                    <Border Padding="10" BackgroundColor="LightGray">
+                    <Border Padding="10">
                         <Label Text="{Binding Name}" 
                                FontSize="18" 
                                FontAttributes="Bold" 

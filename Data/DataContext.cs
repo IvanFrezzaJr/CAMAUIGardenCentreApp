@@ -109,44 +109,125 @@ namespace CAMAUIGardenCentreApp.Data
                 {
                     new Product
                     {
-                        Name = "Product 1",
-                        Price = 10.99m,
+                        Name = "Monstera Deliciosa",
+                        Price = 25.99m,
                         Quantity = 50,
                         CategoryId = 1,
-                        ImageUrl = "https://example.com/product1.jpg"
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/MonsteraDeliciosa.jpg"
                     },
                     new Product
                     {
-                        Name = "Product 2",
+                        Name = "Snake Plant (Sansevieria)",
                         Price = 20.99m,
                         Quantity = 30,
-                        CategoryId = 2,
-                        ImageUrl = "https://example.com/product2.jpg"
+                        CategoryId = 1,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/SnakePlantSansevieria.jpg"
                     },
                     new Product
                     {
-                        Name = "Product 3",
+                        Name = "Lavender Plant",
                         Price = 15.50m,
                         Quantity = 70,
                         CategoryId = 1,
-                        ImageUrl = "https://example.com/product3.jpg"
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/LavenderPlant.jpg"
                     },
                     new Product
                     {
-                        Name = "Product 4",
-                        Price = 7.99m,
+                        Name = "Bonsai Tree (Ficus Retusa)",
+                        Price = 40.99m,
                         Quantity = 120,
-                        CategoryId = 3,
-                        ImageUrl = "https://example.com/product4.jpg"
+                        CategoryId = 1,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/BonsaiTreeFicusRetusa.jpg"
                     },
                     new Product
                     {
-                        Name = "Product 5",
-                        Price = 12.50m,
+                        Name = "Orchid (Phalaenopsis)",
+                        Price = 30.50m,
+                        Quantity = 60,
+                        CategoryId = 1,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/OrchidPhalaenopsis.jpg"
+                    },
+                    new Product
+                    {
+                        Name = "Garden Pruning Shears",
+                        Price = 18.50m,
                         Quantity = 60,
                         CategoryId = 2,
-                        ImageUrl = "https://example.com/product5.jpg"
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/GardenPruningShears.jpg"
+                    },
+                    new Product
+                    {
+                        Name = "Stainless Steel Trowel",
+                        Price = 12.50m,
+                        Quantity = 20,
+                        CategoryId = 2,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/StainlessSteelTrowel.jpg"
+                    },
+                    new Product
+                    {
+                        Name = "Hand Rake",
+                        Price = 10.50m,
+                        Quantity = 60,
+                        CategoryId = 2,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/HandRake.jpg"
+                    },
+                    new Product
+                    {
+                        Name = "Garden Hoe",
+                        Price = 25.50m,
+                        Quantity = 40,
+                        CategoryId = 2,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/GardenHoe.jpg"
+                    },
+                    new Product
+                    {
+                        Name = "Multipurpose Garden Knife",
+                        Price = 22.50m,
+                        Quantity = 100,
+                        CategoryId = 2,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/MultipurposeGardenKnife.jpg"
+                    },
+                    new Product
+                    {
+                        Name = "Organic Fertilizer (5kg)",
+                        Price = 30.50m,
+                        Quantity = 10,
+                        CategoryId = 3,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/OrganicFertilizer.jpg"
+                    },
+                    new Product
+                    {
+                        Name = "Compost Bin (50L)",
+                        Price = 45.50m,
+                        Quantity = 120,
+                        CategoryId = 3,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/CompostBin.jpg"
+                    },
+                    new Product
+                    {
+                        Name = "Drip Irrigation Kit",
+                        Price = 35.50m,
+                        Quantity = 100,
+                        CategoryId = 3,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/DripIrrigationKit.jpg"
+                    },
+                    new Product
+                    {
+                        Name = "Natural Pest Repellent Spray (1L)",
+                        Price = 15.50m,
+                        Quantity = 75,
+                        CategoryId = 3,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/NaturalPestRepellentSpray.jpg"
+                    },
+                    new Product
+                    {
+                        Name = "Mulch Bag (20kg)",
+                        Price = 25.50m,
+                        Quantity = 25,
+                        CategoryId = 3,
+                        ImageUrl = "/data/data/com.CAMAUIGardenCentreApp/files/MulchBag.jpg"
                     }
+
                 };
 
                 foreach (var produto in product)
