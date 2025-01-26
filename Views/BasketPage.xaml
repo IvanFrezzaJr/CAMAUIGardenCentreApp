@@ -40,6 +40,11 @@
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=IncreaseQuantityCommand}"
                                     CommandParameter="{Binding Product}"/>
                         </HorizontalStackLayout>
+
+                        <Button Text="Remove Item" 
+                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=RemoveItemCommand}"
+                             CommandParameter="{Binding Product}"/>
+
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

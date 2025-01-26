@@ -15,11 +15,11 @@ namespace CAMAUIGardenCentreApp.ViewModels;
 
 public partial class BasketViewModel : ObservableObject
 {
-    private readonly BasketService _cartService;
+    private readonly BasketService _basketService;
 
-    public BasketViewModel(BasketService cartService)
+    public BasketViewModel(BasketService basketService)
     {
-        _cartService = cartService;
+        _basketService = basketService;
         LoadCart();
     }
 
@@ -29,43 +29,53 @@ public partial class BasketViewModel : ObservableObject
     [ObservableProperty]
     private decimal _totalPrice;
 
+    [ObservableProperty]
+    private int _quantity;
+
+    
+
     private void LoadCart()
     {
-        var items = _cartService.GetCartItems();
+        var items = _basketService.GetCartItems();
         CartItems = new ObservableCollection<CartItem>(items);
         UpdateTotalPrice();
     }
 
     private void UpdateTotalPrice()
     {
-        TotalPrice = CartItems.Sum(item => item.Product.Price * item.Quantity);
+        TotalPrice = _basketService.GetTotalPrice();
     }
+
+    [RelayCommand]
+    private void RemoveItem(Product product)
+    {
+        if (product != null)
+        {
+            var cartItem = CartItems.FirstOrDefault(i => i.Product.Id == product.Id);
+            if (cartItem != null)
+            {
+                _basketService.RemoveFromCart(product.Id);
+                CartItems.Remove(cartItem); 
+                UpdateTotalPrice();
+            }
+        }
+    }
+
 
     [RelayCommand]
     private void IncreaseQuantity(Product product)
     {
-        var cartItem = CartItems.FirstOrDefault(i => i.Product.Id == product.Id);
-        if (cartItem != null)
-        {
-            cartItem.Quantity++;
-            UpdateTotalPrice();
-        }
+        _basketService.IncreaseQuantity(product.Id);
+        UpdateTotalPrice();
     }
+
+
 
     [RelayCommand]
     private void DecreaseQuantity(Product product)
     {
-        var cartItem = CartItems.FirstOrDefault(i => i.Product.Id == product.Id);
-        if (cartItem != null && cartItem.Quantity > 1)
-        {
-            cartItem.Quantity--;
-            UpdateTotalPrice();
-        }
-        else if (cartItem != null && cartItem.Quantity == 1)
-        {
-            CartItems.Remove(cartItem);
-            UpdateTotalPrice();
-        }
+        _basketService.DecreaseQuantity(product.Id);
+        UpdateTotalPrice();
     }
 
     [RelayCommand]

@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CAMAUIGardenCentreApp.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CAMAUIGardenCentreApp.Models;
 
-public class CartItem
+public partial  class CartItem : ObservableObject
 {
-    public Product Product { get; set; }
-    public int Quantity { get; set; } = 1;
+    [ObservableProperty]
+    private Product _product;
+
+    [ObservableProperty]
+    private int _quantity = 1;
 }
