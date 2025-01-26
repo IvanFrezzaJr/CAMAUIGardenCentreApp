@@ -3,7 +3,7 @@ using CAMAUIGardenCentreApp.Models;
 
 namespace CAMAUIGardenCentreApp.Services;
 
-public class CartService
+public class BasketService
 {
     public ObservableCollection<CartItem> CartItems { get; } = new();
 

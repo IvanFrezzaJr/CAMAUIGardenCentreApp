@@ -60,10 +60,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Include="Services\DatabaseService.cs.old" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
@@ -72,6 +68,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\BasketPage.xaml.cs">
+	    <DependentUpon>BasketPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\CategoryPage.xaml.cs">
 	    <DependentUpon>CategoryPage.xaml</DependentUpon>
 	  </Compile>
@@ -81,7 +80,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\CartPage.xaml">
+	  <MauiXaml Update="Views\BasketPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CheckoutPage.xaml">

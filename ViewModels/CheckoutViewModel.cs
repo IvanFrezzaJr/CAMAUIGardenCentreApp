@@ -16,9 +16,9 @@ namespace CAMAUIGardenCentreApp.ViewModels;
 public partial class CheckoutViewModel : ObservableObject
 {
     private readonly DatabaseContext _context;
-    private readonly CartService _cartService;
+    private readonly BasketService _cartService;
 
-    public CheckoutViewModel(DatabaseContext context, CartService cartService)
+    public CheckoutViewModel(DatabaseContext context, BasketService cartService)
     {
         _context = context;
         _cartService = cartService;

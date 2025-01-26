@@ -2,9 +2,9 @@ using CAMAUIGardenCentreApp.ViewModels;
 
 namespace CAMAUIGardenCentreApp.Views;
 
-public partial class CartPage : ContentPage
+public partial class BasketPage : ContentPage
 {
-    public CartPage(CartViewModel viewModel)
+    public BasketPage(BasketViewModel viewModel)
 	{
 		InitializeComponent();
         BindingContext = viewModel;

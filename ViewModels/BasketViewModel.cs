@@ -13,11 +13,11 @@ using System.Linq;
 
 namespace CAMAUIGardenCentreApp.ViewModels;
 
-public partial class CartViewModel : ObservableObject
+public partial class BasketViewModel : ObservableObject
 {
-    private readonly CartService _cartService;
+    private readonly BasketService _cartService;
 
-    public CartViewModel(CartService cartService)
+    public BasketViewModel(BasketService cartService)
     {
         _cartService = cartService;
         LoadCart();

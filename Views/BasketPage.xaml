@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:CAMAUIGardenCentreApp.Models"
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
-             x:DataType="vm:CartViewModel"
-             x:Class="CAMAUIGardenCentreApp.Views.CartPage"
+             x:DataType="vm:BasketViewModel"
+             x:Class="CAMAUIGardenCentreApp.Views.BasketPage"
              Title="Shopping Cart">
 
     <Grid Padding="10">
@@ -27,7 +27,7 @@
                         <HorizontalStackLayout Spacing="10"
                                                VerticalOptions="Center">
                             <Button Text="-"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=DecreaseQuantityCommand}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=DecreaseQuantityCommand}"
                                     CommandParameter="{Binding Product}"/>
 
                             <Label Text="{Binding Quantity}"
@@ -37,7 +37,7 @@
                                    WidthRequest="40"/>
 
                             <Button Text="+"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=IncreaseQuantityCommand}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=IncreaseQuantityCommand}"
                                     CommandParameter="{Binding Product}"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>

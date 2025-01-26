@@ -11,11 +11,11 @@ namespace CAMAUIGardenCentreApp.ViewModels;
 public partial class MainViewModel : BaseViewModel
 {
     private readonly ProductService _productService;
-    private readonly CartService _cartService;
+    private readonly BasketService _cartService;
     private readonly LoadingService _loadingService;
 
 
-    public MainViewModel(ProductService productService, CartService cartService, LoadingService loadingService)
+    public MainViewModel(ProductService productService, BasketService cartService, LoadingService loadingService)
     {
         _productService = productService;
         _cartService = cartService;
@@ -55,17 +55,17 @@ public partial class MainViewModel : BaseViewModel
 
         _cartService.AddToCart(product);
 
-        // Atualiza o estado do botão flutuante
+        // Update floating basket menu status 
         HasItemsInCart = _cartService.GetCartItems().Any();
         CartItemCount = _cartService.GetCartItems().Count();
 
-        await Shell.Current.DisplayAlert("Carrinho", $"{product.Name} foi adicionado ao carrinho!", "OK");
+        await Shell.Current.DisplayAlert("Basket", $"{product.Name} added to basket!", "OK");
     }
 
 
     [RelayCommand]
     private async Task GoToCartAsync()
     {
-        await Shell.Current.GoToAsync(nameof(CartPage));
+        await Shell.Current.GoToAsync(nameof(BasketPage));
     }
 }
