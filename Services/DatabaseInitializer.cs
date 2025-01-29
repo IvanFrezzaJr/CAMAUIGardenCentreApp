@@ -16,5 +16,6 @@ public class DatabaseInitializer
     {
         await _context.InitCategory(); // Init category
         await _context.InitProduct(); // Init product
+        await _context.InitUser(); // Init user
     }
 }

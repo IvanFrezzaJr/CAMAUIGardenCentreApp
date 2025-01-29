@@ -13,42 +13,27 @@
         <!-- Product List -->
         <CollectionView  Grid.Row="0"
             x:Name="MainCollectionView" ItemsSource="{Binding Products}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2" />
-            </CollectionView.ItemsLayout>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout x:Name="GridLayout" Orientation="Vertical" Span="2"/>
+                </CollectionView.ItemsLayout>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Product">
-                    <VerticalStackLayout Padding="10" HorizontalOptions="Center">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Product">
+                            <VerticalStackLayout Padding="10" HorizontalOptions="Center">
+                                <Image Source="{Binding ImageUrl}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill"/>
+                                <Label Text="{Binding Name}" FontSize="16" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                                <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="16" TextColor="Green" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                                <Button Text="Add to Cart"
+                        HeightRequest="25"
+                        FontSize="12"
+                        CornerRadius="2"
+                        Command="{Binding AddToCartCommand}"
+                        CommandParameter="{Binding}" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
 
-                        <!-- Product Image -->
-                        <Image Source="{Binding ImageUrl}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill"/>
-
-                        <!-- Product Name -->
-                        <Label Text="{Binding Name}" FontSize="16" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
-
-                            
-                        <!-- Product Price -->
-                        <Label   Grid.Column="0"
-                        Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="16" TextColor="Green" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
-
-                        <Button
-                            Grid.Column="1"
-                            Text="Add to Cart"
-                            HeightRequest="25"
-                            FontSize="12"
-                            CornerRadius="2"
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=AddToCartCommand}"
-                            CommandParameter="{Binding}" />
-
-
-                    </VerticalStackLayout>
-
-                </DataTemplate>
-
-            </CollectionView.ItemTemplate>
-
-            <CollectionView.EmptyView>
+                    <CollectionView.EmptyView>
                 <ContentView>
                     <VerticalStackLayout HorizontalOptions="Center"
                                          VerticalOptions="Center">

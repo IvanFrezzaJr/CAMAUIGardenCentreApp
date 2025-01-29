@@ -31,7 +31,7 @@ namespace CAMAUIGardenCentreApp.Models
             }
             set
             {
-                _imageUrl = value; //Path.Combine(FileSystem.AppDataDirectory, value);
+                _imageUrl = value; 
             } 
         }
     }

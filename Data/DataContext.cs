@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System.Linq.Expressions;
 using CAMAUIGardenCentreApp.Models;
+using System.Diagnostics;
 
 namespace CAMAUIGardenCentreApp.Data
 {
@@ -28,7 +29,11 @@ namespace CAMAUIGardenCentreApp.Data
             {
                 try
                 {
+
+                    Debug.WriteLine(" Deleting the database file ...");
+                    Debug.WriteLine(DbPath);
                     File.Delete(DbPath); // Delete the database file
+                    Debug.WriteLine(" Database file deleted.");
                 }
                 catch (Exception ex)
                 {
@@ -59,6 +64,7 @@ namespace CAMAUIGardenCentreApp.Data
             var table = await GetTableAsync<TTable>();
             return await table.Where(predicate).ToListAsync();
         }
+
 
         private async Task<TResult> Execute<TTable, TResult>(Func<Task<TResult>> action) where TTable : class, new()
         {
@@ -266,6 +272,36 @@ namespace CAMAUIGardenCentreApp.Data
                 }
             }
         }
+
+
+        public async Task InitUser()
+        {
+            var userExists = await GetAllAsync<User>();
+
+            if (!userExists.Any())
+            {
+                var user = new List<User>
+                {
+                    new User
+                    {      
+                        Login = "ivan",
+                        Password = PasswordHasher.HashPassword("1234"),
+                        Type = "personal"
+                    },
+                    new User
+                    {
+                        Login = "bruna",
+                        Password = PasswordHasher.HashPassword("1234"),
+                        Type = "corporate"
+                    }
+                };
+                foreach (var u in user)
+                {
+                    await AddItemAsync(u);
+                }
+            }
+        }
+
 
 
         public async ValueTask DisposeAsync() => await _connection?.CloseAsync();

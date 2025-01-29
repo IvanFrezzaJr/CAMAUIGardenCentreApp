@@ -1,20 +1,16 @@
 using CAMAUIGardenCentreApp.Services;
+using CAMAUIGardenCentreApp.ViewModels;
 
 namespace CAMAUIGardenCentreApp.Views;
 
 public partial class LoginPage : ContentPage
 {
     private readonly AuthService _authService;
+    private readonly LoginViewModel _loginViewModel;
 
-    public LoginPage(AuthService authService)
+    public LoginPage(LoginViewModel loginViewModel)
     {
         InitializeComponent();
-        _authService = authService;
-    }
-
-    private async void Button_Clicked(object sender, EventArgs e)
-    {
-        _authService.Login();
-        await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+        BindingContext = loginViewModel;
     }
 }

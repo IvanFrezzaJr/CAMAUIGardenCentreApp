@@ -20,11 +20,6 @@ public class ProductService
         return await _context.GetAllAsync<Product>();
     }
 
-    public async Task<bool> DeleteProductAsync(int id)
-    {
-        return await _context.DeleteItemByKeyAsync<Product>(id);
-    }
-
     public async Task<IEnumerable<Product>> GetProductsByCategoryId(int categoryId)
     {
         return await _context.GetFileteredAsync<Product>(p => p.CategoryId == categoryId);

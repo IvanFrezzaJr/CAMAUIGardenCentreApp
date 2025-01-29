@@ -3,27 +3,63 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CAMAUIGardenCentreApp.Models;
+using CAMAUIGardenCentreApp.Data;
+using System.Diagnostics;
+namespace CAMAUIGardenCentreApp.Services;
 
-namespace CAMAUIGardenCentreApp.Services
+
+public class AuthService
 {
-    public class AuthService
+
+    private const string AuthStateKey = "AuthState";
+    private readonly DatabaseContext _context;
+
+    public AuthService (DatabaseContext context) {
+        _context = context;
+    }
+
+
+    public async Task<bool> IsAuthenticatedAsync()
     {
-        private const string AuthStateKey = "AuthState";
-        public async Task<bool> IsAuthenticatedAsync()
-        {
-            await Task.Delay(2000);
+        await Task.Delay(1000);
 
-            var authState = Preferences.Default.Get<bool>(AuthStateKey, false);
+        var authState = Preferences.Default.Get<bool>(AuthStateKey, false);
 
-            return authState;
-        }
-        public void Login()
+        return authState;
+    }
+    public void Login()
+    {
+        Preferences.Default.Set<bool>(AuthStateKey, true);
+    }
+    public void Logout() 
+    {
+        Preferences.Default.Remove(AuthStateKey);
+    }
+
+
+    public async Task<bool> Authenticate(string login, string password)
+    {
+        IEnumerable<User> users = await _context.GetFileteredAsync<User>(p => p.Login == login);
+
+        if (users is not null && users.Any())
         {
-            Preferences.Default.Set<bool>(AuthStateKey, true);
+            User user = users.First();
+
+
+            bool isPasswordCorrect = PasswordHasher.VerifyPassword(password, user.Password);
+
+            return (isPasswordCorrect) ? true : false;
         }
-        public void Logout() 
-        {
-            Preferences.Default.Remove(AuthStateKey);
-        }
+
+        return false;
+        
+    }
+
+
+    public async Task<IEnumerable<Product>> GetProductsByCategoryId(int categoryId)
+    {
+        return await _context.GetFileteredAsync<Product>(p => p.CategoryId == categoryId);
+
     }
 }
