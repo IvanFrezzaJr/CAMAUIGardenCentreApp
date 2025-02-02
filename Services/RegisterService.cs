@@ -27,7 +27,7 @@ public class RegisterService
     }
 
 
-    public async Task<bool> AddCreditCardAsync(int userId, CreditCard creditCard)
+    public async Task<bool> AddCreditCardAsync(CreditCard creditCard)
     {
         if (creditCard == null || creditCard.CardNumber == null || string.IsNullOrWhiteSpace(creditCard.CardholderName) || string.IsNullOrWhiteSpace(creditCard.ExpirationDate) || creditCard.cvv == null)
         {
@@ -38,15 +38,15 @@ public class RegisterService
     }
 
 
-    //public async Task<bool> AddAccountAsync(User user)
-    //{
-    //    if (user == null || string.IsNullOrWhiteSpace(user.Login) || string.IsNullOrWhiteSpace(user.Password))
-    //    {
-    //        return false; // Validation: User object must have valid login and password
-    //    }
+    public async Task<bool> AddAccountAsync(Account account)
+    {
+        if (account == null || string.IsNullOrWhiteSpace(account.CompanyName) || string.IsNullOrWhiteSpace(account.CompanyTaxID) || string.IsNullOrWhiteSpace(account.BillingEmail))
+        {
+            return false; // Validation: User object must have valid login and password
+        }
 
-    //    return await _dbContext.AddItemAsync(user);
-    //}
+        return await _dbContext.AddItemAsync(account);
+    }
 
 
     public async Task<IEnumerable<User>> GetUserByLoginAsync(string login)

@@ -147,7 +147,6 @@ namespace CAMAUIGardenCentreApp.ViewModels
 
             if (Cvv.ToString().Length != 3)
             {
-                Debug.WriteLine($"---------------------------------- {CardNumber}");
                 AddValidationError("CVV must be 3 digits.");
             }
 
@@ -158,14 +157,17 @@ namespace CAMAUIGardenCentreApp.ViewModels
         {
             ClearValidationErrors();
 
-            if (string.IsNullOrWhiteSpace(CompanyName))
+            if (string.IsNullOrWhiteSpace(CompanyName)) { 
                 AddValidationError("Company name is required.");
+            }
 
-            if (string.IsNullOrWhiteSpace(CompanyTaxID))
+            if (string.IsNullOrWhiteSpace(CompanyTaxID)) { 
                 AddValidationError("Company Tax ID is required.");
+            }
 
-            if (string.IsNullOrWhiteSpace(BillingEmail) || !Regex.IsMatch(BillingEmail, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            if (string.IsNullOrWhiteSpace(BillingEmail) || !Regex.IsMatch(BillingEmail, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) { 
                 AddValidationError("Billing email is required and must be a valid email address.");
+            }
 
             return _validationErrors.Count == 0;
         }
@@ -230,21 +232,38 @@ namespace CAMAUIGardenCentreApp.ViewModels
 
             bool status = await _registerService.AddUserAsync(user);
 
-
-
-
-            CreditCard creditCard = new CreditCard
+            if (IsPersonal)
             {
-                UserId = user.Id,   
-                CardholderName = cardholderName,
-                CardNumber = (long)cardNumber,
-                cvv = (int)Cvv,
-                ExpirationDate = expirationDate,
-            };
+                CreditCard creditCard = new CreditCard
+                {
+                    UserId = user.Id,
+                    CardholderName = cardholderName,
+                    CardNumber = (long)cardNumber,
+                    cvv = (int)Cvv,
+                    ExpirationDate = expirationDate,
+                };
 
-            status = await _registerService.AddCreditCardAsync(user.Id, creditCard);
+                status = await _registerService.AddCreditCardAsync(creditCard);
+            }
 
-            if (status)
+
+            if (IsCorporate)
+            {
+                Account account = new Account
+                {
+                    UserId = user.Id,
+                    CompanyName = companyName,
+                    CompanyTaxID = companyTaxID,
+                    BillingEmail = billingEmail,
+                };
+
+
+                status = await _registerService.AddAccountAsync(account);
+
+            }
+
+
+                if (status)
             {
                 await Application.Current.MainPage.DisplayAlert("Success", "Registration successful!", "OK");
 
