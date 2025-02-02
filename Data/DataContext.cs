@@ -86,6 +86,17 @@ namespace CAMAUIGardenCentreApp.Data
             return await Execute<TTable, bool>(async () => await Database.InsertAsync(item) > 0);
         }
 
+        public async Task<int> AddItemAndGetIdAsync<TTable>(TTable item) where TTable : class, new()
+        {
+            return await Execute<TTable, int>(async () =>
+            {
+                await Database.InsertAsync(item);
+                var pkProperty = typeof(TTable).GetProperties().FirstOrDefault(p => p.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Any());
+                return pkProperty != null ? (int)pkProperty.GetValue(item) : 0;
+            });
+        }
+
+
         public async Task<bool> UpdateItemAsync<TTable>(TTable item) where TTable : class, new()
         {
             await CreateTableIfNotExists<TTable>();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CAMAUIGardenCentreApp.Models;
 using CAMAUIGardenCentreApp.Data;
+using System.Diagnostics;
 
 public class CheckoutService
 {
@@ -14,14 +15,24 @@ public class CheckoutService
     }
 
 
-    public async Task<int> CreateCheckoutAsync(int userId)
+    public async Task<Checkout> CreateCheckoutAsync(int userId)
     {
         var checkout = new Checkout
         {
             UserId = userId,
             TotalAmount = 0
         };
-        return checkout.Id;
+
+        int id  = await _dbContext.AddItemAndGetIdAsync(checkout);
+
+        if (id != null)
+        {
+            checkout.Id = id;
+            return checkout;
+        } else
+        {
+            return null;
+        }
     }
 
     public async Task<bool> AddItemAsync(int checkoutId, string productName, int quantity, decimal price)

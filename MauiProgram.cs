@@ -31,6 +31,7 @@ namespace CAMAUIGardenCentreApp
             builder.Services.AddSingleton<LoadingService>();
             builder.Services.AddSingleton<ProductService>();
             builder.Services.AddSingleton<RegisterService>();
+            builder.Services.AddSingleton<CheckoutService>();
 
             // register ViewModels
             builder.Services.AddTransient<MainViewModel>();
@@ -40,6 +41,7 @@ namespace CAMAUIGardenCentreApp
             builder.Services.AddTransient<ProductListViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddSingleton<CheckoutViewModel>();
 
             // register pages
             builder.Services.AddTransient<LoadingPage>();

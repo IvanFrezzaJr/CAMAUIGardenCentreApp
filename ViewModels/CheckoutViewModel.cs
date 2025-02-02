@@ -62,8 +62,8 @@ public partial class CheckoutViewModel : ObservableObject
         }
 
 
-        int checkoutId = await _checkoutService.CreateCheckoutAsync(userLogged);
-        if (checkoutId == 0)
+        Checkout checkout  = await _checkoutService.CreateCheckoutAsync(userLogged);
+        if (checkout == null)
         {
             await Application.Current.MainPage.DisplayAlert("Error", "Checkout Error. Please try again later", "OK");
             return;
@@ -74,7 +74,7 @@ public partial class CheckoutViewModel : ObservableObject
 
         foreach (CartItem item in items)
         {
-            await _checkoutService.AddItemAsync(checkoutId, item.Product.Name, item.Quantity, (item.Quantity * item.Product.Price));
+            await _checkoutService.AddItemAsync(checkout.Id, item.Product.Name, item.Quantity, (item.Quantity * item.Product.Price));
             
         }
 
