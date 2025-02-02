@@ -13,7 +13,7 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <Entry Placeholder="Email" Text="{Binding Email}" />
+        <Entry Placeholder="Login" Text="{Binding Email}" />
         <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
 
 

@@ -11,6 +11,7 @@ using Microsoft.Maui.Controls;
 using CAMAUIGardenCentreApp.Data;
 using CAMAUIGardenCentreApp.Services;
 using CAMAUIGardenCentreApp.Views;
+using System.Diagnostics;
 
 
 
@@ -44,7 +45,7 @@ public partial class LoginViewModel : ObservableObject
         {
             _authService.Login();
             // Navega para a página principal
-            Shell.Current.GoToAsync("//MainPage");
+            await Shell.Current.GoToAsync("//MainPage");
         }
         else
         {
@@ -54,22 +55,11 @@ public partial class LoginViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OnRegister()
+    private async void OnRegister()
     {
-        // Navega para a página de registro
-        Shell.Current.GoToAsync("//RegisterPage");
-    }
-
-    private bool Authenticate(string email, string password)
-    {
-        // Substitua isso pela sua lógica de autenticação real
-        return email == "user@example.com" && password == "password";
+        Debug.WriteLine("------------------------------------------------------------");
+        await Shell.Current.GoToAsync("RegisterPage");
     }
 
 
-    //private async void Button_Clicked(object sender, EventArgs e)
-    //{
-    //    _authService.Login();
-    //    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-    //}
 }

@@ -83,5 +83,6 @@ public partial class BasketViewModel : ObservableObject
     {
         await Shell.Current.GoToAsync(nameof(CheckoutPage));
     }
+
 }
 

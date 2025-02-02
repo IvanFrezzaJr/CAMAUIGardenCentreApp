@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:CAMAUIGardenCentreApp.Models"
+             xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
+             x:DataType="vm:RegisterViewModel"
+             x:Class="CAMAUIGardenCentreApp.Views.RegisterPage"
+             Title="RegisterPage">
+
+
+    <ScrollView>
+    <VerticalStackLayout Padding="25" Spacing="25">
+        <Label Text="Select Account Type:" />
+
+        <StackLayout Orientation="Horizontal">
+            <RadioButton Content="Personal" IsChecked="{Binding IsPersonal, Mode=TwoWay}"/>
+            <RadioButton Content="Corporate" IsChecked="{Binding IsCorporate, Mode=TwoWay}" />
+        </StackLayout>
+
+        <Entry Placeholder="Login" Text="{Binding Login, Mode=TwoWay}" />
+        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password, Mode=TwoWay}" />
+
+        <!-- Campos para Corporate -->
+        <StackLayout IsVisible="{Binding IsCorporate}">
+            <Entry Placeholder="Company Name" Text="{Binding CompanyName, Mode=TwoWay}" />
+            <Entry Placeholder="Company Tax ID" Text="{Binding CompanyTaxID, Mode=TwoWay}" />
+            <Entry Placeholder="Billing Email" Text="{Binding BillingEmail, Mode=TwoWay}" />
+        </StackLayout>
+
+        <!-- Campos para Personal -->
+            <StackLayout IsVisible="{Binding IsPersonal}">
+                <Entry Placeholder="Cardholder Name" Text="{Binding CardholderName, Mode=TwoWay}" />
+
+                <Entry Placeholder="Card Number" Text="{Binding CardNumber, Mode=TwoWay}"  Keyboard="Numeric"/>
+
+                <Entry Placeholder="Expiration Date (MM/YY)" Text="{Binding ExpirationDate, Mode=TwoWay}" />
+
+                <Entry Placeholder="CVV" Text="{Binding Cvv, Mode=TwoWay}" IsPassword="True" Keyboard="Numeric" MaxLength="5" />
+            </StackLayout>
+
+            <Button Text="Register" Command="{Binding RegisterCommand}" />
+    </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

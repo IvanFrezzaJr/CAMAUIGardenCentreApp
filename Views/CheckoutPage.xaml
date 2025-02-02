@@ -20,11 +20,9 @@
                                FontAttributes="Bold"
                                FontSize="16"/>
 
-                        <Label Text="{Binding Product.Price, StringFormat='Price: {0:C}'}"
+                        <Label Text="{Binding Product.Price, StringFormat='Unit price: {0:C}'}"
                                FontSize="14"
                                TextColor="Gray"/>
-
-            
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

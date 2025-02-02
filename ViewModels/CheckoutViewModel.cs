@@ -17,11 +17,15 @@ public partial class CheckoutViewModel : ObservableObject
 {
     private readonly DatabaseContext _context;
     private readonly BasketService _cartService;
+    private readonly CheckoutService _checkoutService;
+    private readonly AuthService _authService;
 
-    public CheckoutViewModel(DatabaseContext context, BasketService cartService)
+    public CheckoutViewModel(DatabaseContext context, BasketService cartService, CheckoutService checkoutService, AuthService authService)
     {
         _context = context;
         _cartService = cartService;
+        _checkoutService = checkoutService;
+        _authService = authService;
         LoadCheckoutItems();
     }
 
@@ -47,6 +51,35 @@ public partial class CheckoutViewModel : ObservableObject
     [RelayCommand]
     private async Task GoToPayAsync()
     {
+
+
+        var userLogged = Preferences.Default.Get<int>("LogedUserId", 0);
+
+        if (userLogged == 0)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "User not found. Please try to login again", "OK");
+            return;
+        }
+
+
+        int checkoutId = await _checkoutService.CreateCheckoutAsync(userLogged);
+        if (checkoutId == 0)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Checkout Error. Please try again later", "OK");
+            return;
+        }
+
+
+        var items = _cartService.GetCartItems();
+
+        foreach (CartItem item in items)
+        {
+            await _checkoutService.AddItemAsync(checkoutId, item.Product.Name, item.Quantity, (item.Quantity * item.Product.Price));
+            
+        }
+
+        await Application.Current.MainPage.DisplayAlert("Success", "Purchase finished with success!", "OK");
+
         await Shell.Current.GoToAsync(nameof(SuccessPage));
     }
 }

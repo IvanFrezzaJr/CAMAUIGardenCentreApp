@@ -13,6 +13,7 @@ public class AuthService
 {
 
     private const string AuthStateKey = "AuthState";
+    private const string LogedUserId = "LogedUserId";
     private readonly DatabaseContext _context;
 
     public AuthService (DatabaseContext context) {
@@ -45,6 +46,8 @@ public class AuthService
         if (users is not null && users.Any())
         {
             User user = users.First();
+
+            Preferences.Default.Set<int>(LogedUserId, user.Id);
 
 
             bool isPasswordCorrect = PasswordHasher.VerifyPassword(password, user.Password);
