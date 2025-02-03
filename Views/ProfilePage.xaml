@@ -1,15 +1,60 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:CAMAUIGardenCentreApp.Models"
+             xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
+             x:DataType="vm:ProfileViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.ProfilePage"
-             Title="ProfilePage">
-    <VerticalStackLayout Padding="25"
-                         Spacing="25">
-        <Label 
-            Text="Profile Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button Text="Logout"
-                Clicked="Button_Clicked"/>
+             Title="Profile Page">
+
+    <VerticalStackLayout Padding="25" Spacing="25">
+        <Label Text="Profile Page"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" 
+               FontSize="24"/>
+
+        <StackLayout x:Name="CorporateSection" IsVisible="{Binding IsCorporateUser}">
+            <Label Text="Next Billing Date:" FontSize="18" FontAttributes="Bold"/>
+            <Label Text="{Binding NextBillingDate}" FontSize="16"/>
+
+            <Label Text="Items to be Billed:" FontSize="18" FontAttributes="Bold"/>
+
+            <!-- Declaração do CollectionView -->
+            <CollectionView ItemsSource="{Binding BillingItems}">
+                <!-- Cabeçalho -->
+                <CollectionView.Header>
+                    <Border StrokeThickness="1" Stroke="LightGray">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Id" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label Text="Total" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                </CollectionView.Header>
+
+                <!-- Itens -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Checkout">
+                        <Border StrokeThickness="1" Stroke="LightGray">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Id}" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Label Text="{Binding TotalAmount}" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+        </StackLayout>
+
+        <Button Text="Logout" Command="{Binding LogoutCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

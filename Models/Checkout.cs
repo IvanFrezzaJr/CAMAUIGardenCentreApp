@@ -14,6 +14,9 @@ public class Checkout
     [Column("total_amount")]
     public decimal TotalAmount { get; set; }
 
+    [Column("is_paid")]
+    public bool IsPaid { get; set; }
+
     [Column("Created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

@@ -20,5 +20,10 @@ namespace CAMAUIGardenCentreApp.Models
 
         [Column("billing_email")]
         public string BillingEmail { get; set; }
+
+        [Column("billing_day")]
+        public int BillingDay { get; set; }
+
+
     }
 }

@@ -25,7 +25,8 @@
             <Entry Placeholder="Company Name" Text="{Binding CompanyName, Mode=TwoWay}" />
             <Entry Placeholder="Company Tax ID" Text="{Binding CompanyTaxID, Mode=TwoWay}" />
             <Entry Placeholder="Billing Email" Text="{Binding BillingEmail, Mode=TwoWay}" />
-        </StackLayout>
+            <Entry Placeholder="Billing Day" Text="{Binding BillingDay, Mode=TwoWay}"  Keyboard="Numeric"/>
+            </StackLayout>
 
         <!-- Campos para Personal -->
             <StackLayout IsVisible="{Binding IsPersonal}">

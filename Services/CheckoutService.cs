@@ -88,4 +88,39 @@ public class CheckoutService
         }
         return true;
     }
+
+
+    public async Task<IEnumerable<Checkout>> GetUnpaidCheckoutsAsync(int userId)
+    {
+        return await _dbContext.GetFileteredAsync<Checkout>(c => c.UserId == userId && !c.IsPaid);
+    }
+
+
+    public async Task UpdateOverdueCheckoutsAsync(int userId, int billingDay)
+    {
+        var unpaidCheckouts = await GetUnpaidCheckoutsAsync(userId);
+        DateTime today = DateTime.Today;
+
+        foreach (var checkout in unpaidCheckouts)
+        {
+            DateTime nextBillingDate = CalculateNextBillingDate(billingDay);
+
+            if (nextBillingDate < today)
+            {
+                checkout.IsPaid = true;
+                await _dbContext.UpdateItemAsync(checkout);
+            }
+        }
+    }
+
+
+    public DateTime CalculateNextBillingDate(int billingDay)
+    {
+        DateTime today = DateTime.Today;
+        DateTime thisMonthBilling = new DateTime(today.Year, today.Month, billingDay);
+
+
+        return today <= thisMonthBilling ? thisMonthBilling : thisMonthBilling.AddMonths(1);
+    }
+
 }

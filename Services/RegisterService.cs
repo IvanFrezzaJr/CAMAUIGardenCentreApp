@@ -58,6 +58,30 @@ public class RegisterService
 
         return await _dbContext.GetFileteredAsync<User>(u => u.Login == login);
     }
+
+
+    public async Task<IEnumerable<User>> GetUserByIdAsync(int id)
+    {
+        if (id == null)
+        {
+            return null; // Validation: Login must not be empty
+        }
+
+        return await _dbContext.GetFileteredAsync<User>(u => u.Id == id);
+    }
+
+
+    public async Task<IEnumerable<Account>> GetUserAccountAsync(int id)
+    {
+        if (id == null)
+        {
+            return null; // Validation: Login must not be empty
+        }
+
+        return await _dbContext.GetFileteredAsync<Account>(u => u.Id == id);
+
+    }
+
 }
 
 

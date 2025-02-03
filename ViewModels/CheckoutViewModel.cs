@@ -19,13 +19,16 @@ public partial class CheckoutViewModel : ObservableObject
     private readonly BasketService _cartService;
     private readonly CheckoutService _checkoutService;
     private readonly AuthService _authService;
+    private readonly RegisterService _registerService;
 
-    public CheckoutViewModel(DatabaseContext context, BasketService cartService, CheckoutService checkoutService, AuthService authService)
+    public CheckoutViewModel(DatabaseContext context, BasketService cartService, CheckoutService checkoutService, AuthService authService, RegisterService registerService)
     {
         _context = context;
         _cartService = cartService;
         _checkoutService = checkoutService;
         _authService = authService;
+        _registerService = registerService;
+
         LoadCheckoutItems();
     }
 
@@ -62,12 +65,25 @@ public partial class CheckoutViewModel : ObservableObject
         }
 
 
+        var users = await _registerService.GetUserByIdAsync(userLogged);
+        var user = users.FirstOrDefault();
+
+        if (user == null)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Checkout Error. Please try again later", "OK");
+            return;
+        }
+
         Checkout checkout  = await _checkoutService.CreateCheckoutAsync(userLogged);
         if (checkout == null)
         {
             await Application.Current.MainPage.DisplayAlert("Error", "Checkout Error. Please try again later", "OK");
             return;
         }
+
+        bool isCorportate = (user.Type == "corporate") ? true : false;
+
+        checkout.IsPaid = !isCorportate;
 
 
         var items = _cartService.GetCartItems();
@@ -99,4 +115,7 @@ public partial class CheckoutViewModel : ObservableObject
 
         await Shell.Current.GoToAsync(nameof(SuccessPage));
     }
+
+
+
 }

@@ -97,6 +97,9 @@ namespace CAMAUIGardenCentreApp.ViewModels
         [ObservableProperty]
         private string billingEmail;
 
+        [ObservableProperty]
+        private int billingDay = 1;
+
         private List<string> _validationErrors = new List<string>();
 
         private void AddValidationError(string message)
@@ -255,6 +258,7 @@ namespace CAMAUIGardenCentreApp.ViewModels
                     CompanyName = companyName,
                     CompanyTaxID = companyTaxID,
                     BillingEmail = billingEmail,
+                    BillingDay = billingDay,
                 };
 
 

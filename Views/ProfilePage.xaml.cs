@@ -1,4 +1,5 @@
 using CAMAUIGardenCentreApp.Services;
+using CAMAUIGardenCentreApp.ViewModels;
 
 namespace CAMAUIGardenCentreApp.Views;
 
@@ -6,15 +7,11 @@ public partial class ProfilePage : ContentPage
 {
     private readonly AuthService _authService;
 
-    public ProfilePage(AuthService authService)
+    public ProfilePage(AuthService authService, ProfileViewModel profileViewModel)
     {
         InitializeComponent();
-        _authService = authService;
-    }
+        BindingContext = profileViewModel;
 
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        _authService.Logout();
-        Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+        _authService = authService;
     }
 }
