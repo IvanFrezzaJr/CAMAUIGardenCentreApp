@@ -30,6 +30,12 @@ public class BasketService
     }
 
 
+    public void CleanCart()
+    {
+        CartItems.Clear();
+    }
+
+
     public ObservableCollection<CartItem> GetCartItems()
     {
         return CartItems;

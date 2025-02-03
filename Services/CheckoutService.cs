@@ -5,6 +5,7 @@ using CAMAUIGardenCentreApp.Models;
 using CAMAUIGardenCentreApp.Data;
 using System.Diagnostics;
 
+
 public class CheckoutService
 {
     private readonly DatabaseContext _dbContext;
@@ -33,6 +34,20 @@ public class CheckoutService
         {
             return null;
         }
+    }
+
+    public async Task<Checkout> UpdateCheckoutAsync(Checkout checkout)
+    {
+
+        bool status = await _dbContext.UpdateItemAsync<Checkout>(checkout);
+        if (status)
+        {
+            return checkout;
+        } else
+        {
+            return null;
+        }
+  
     }
 
     public async Task<bool> AddItemAsync(int checkoutId, string productName, int quantity, decimal price)

@@ -71,12 +71,29 @@ public partial class CheckoutViewModel : ObservableObject
 
 
         var items = _cartService.GetCartItems();
+        decimal total = 0;
+        decimal totalPerItem = 0;
 
         foreach (CartItem item in items)
         {
-            await _checkoutService.AddItemAsync(checkout.Id, item.Product.Name, item.Quantity, (item.Quantity * item.Product.Price));
-            
+            totalPerItem = item.Quantity * item.Product.Price;
+            await _checkoutService.AddItemAsync(checkout.Id, item.Product.Name, item.Quantity, totalPerItem);
+            total = total + totalPerItem;
         }
+
+        checkout.TotalAmount = total;
+
+        var checkoutUpdated = await _checkoutService.UpdateCheckoutAsync(checkout);
+
+        if (checkoutUpdated == null)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Checkout Error. It was not possible to update the totalAmount", "OK");
+            return;
+        } else
+        {
+            _cartService.CleanCart();
+        }
+
 
         await Application.Current.MainPage.DisplayAlert("Success", "Purchase finished with success!", "OK");
 
