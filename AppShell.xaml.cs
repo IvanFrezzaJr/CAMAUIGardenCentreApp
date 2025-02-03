@@ -8,6 +8,9 @@ namespace CAMAUIGardenCentreApp
         {
             InitializeComponent();
 
+            Application.Current.UserAppTheme = AppTheme.Light;
+
+
             Routing.RegisterRoute(nameof(LoadingPage), typeof(LoadingPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));

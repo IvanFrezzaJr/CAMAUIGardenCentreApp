@@ -10,12 +10,12 @@
         <!-- Lista de Categorias -->
         <CollectionView ItemsSource="{Binding Categories}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
+                <LinearItemsLayout Orientation="Vertical"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Category">
-                    <Border Padding="10">
+                    <Border Padding="10" BackgroundColor="White">
                         <Label Text="{Binding Name}" 
                                FontSize="18" 
                                FontAttributes="Bold" 

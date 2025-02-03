@@ -60,7 +60,7 @@ public partial class MainViewModel : BaseViewModel
         // Update floating basket menu status 
         UpdateBasket();
 
-        await Shell.Current.DisplayAlert("Basket", $"{product.Name} added to basket!", "OK");
+        //await Shell.Current.DisplayAlert("Basket", $"{product.Name} added to basket!", "OK");
     }
 
     private void UpdateBasket()

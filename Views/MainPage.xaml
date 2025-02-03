@@ -3,8 +3,16 @@
              xmlns:model="clr-namespace:CAMAUIGardenCentreApp.Models"
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
              x:DataType="vm:MainViewModel"
-             x:Class="CAMAUIGardenCentreApp.Views.MainPage">
+             x:Class="CAMAUIGardenCentreApp.Views.MainPage"
+             BackgroundColor="{StaticResource Background}"
+             Title="Home">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cart"
+                     IconImageSource="shopping_cart_icon.png"
+                     Command="{Binding GoToCartCommand}" />
+    </ContentPage.ToolbarItems>
+    
 
     <Grid RowDefinitions="*, Auto">
         <ScrollView Grid.Row="0">
@@ -55,12 +63,9 @@
     <!-- Cart button -->
     <Border Grid.Row="1"
       Background="DarkOrange"
-          StrokeShape="RoundRectangle 30"
-          Padding="10"
           StrokeThickness="0"
           VerticalOptions="End"
           HorizontalOptions="FillAndExpand"
-          Margin="20"
           IsVisible="{Binding HasItemsInCart}">
         <StackLayout Orientation="Horizontal"
                    VerticalOptions="Center"
@@ -71,17 +76,28 @@
                 <TapGestureRecognizer Command="{Binding GoToCartCommand}" />
             </StackLayout.GestureRecognizers>
 
-            <Label Text="{Binding CartItemCount, StringFormat='You have {0} items in your Cart.'}"
-                 VerticalTextAlignment="Center"
-                 HorizontalTextAlignment="Center"
-                 FontSize="14"
-                 TextColor="White" 
-                 HorizontalOptions="FillAndExpand"/>
-            <ImageButton Source="cart_icon.png"
-                       WidthRequest="30"
-                       HeightRequest="30"
-                       BackgroundColor="Transparent"/>
-        </StackLayout>
+
+                <Grid VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="{Binding CartItemCount, StringFormat='You have {0} items in your Cart.'}"
+           VerticalTextAlignment="Center"
+           HorizontalTextAlignment="Start"
+           FontSize="14"
+           TextColor="White" 
+           Grid.Column="0" />
+
+                    <ImageButton Source="shopping_cart_icon_white.png"
+                 WidthRequest="20" 
+                        HeightRequest="20"
+                 BackgroundColor="Transparent"
+                 Grid.Column="1"
+                 VerticalOptions="Center" />
+                </Grid>
+            </StackLayout>
     </Border>
 
     </Grid>
