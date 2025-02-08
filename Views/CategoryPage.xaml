@@ -4,9 +4,10 @@
               xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
               x:DataType="vm:CategoryViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.CategoryPage"
-             Title="Categories">
+             Title="Categories Page">
 
-    <Grid>
+    <Grid RowDefinitions="*, Auto">
+        <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Always">
         <!-- Lista de Categorias -->
         <CollectionView ItemsSource="{Binding Categories}">
             <CollectionView.ItemsLayout>
@@ -15,20 +16,67 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Category">
-                    <Border Padding="10" BackgroundColor="White">
-                        <Label Text="{Binding Name}" 
-                               FontSize="18" 
-                               FontAttributes="Bold" 
-                               HorizontalOptions="Center"/>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer 
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CategoryViewModel}}, Path=GoToProductCommand}" 
-                    CommandParameter="{Binding Id}" />
-                        </Border.GestureRecognizers>
+                    <VerticalStackLayout>
+                        <Border Padding="10" BackgroundColor="White" Stroke="LightGray" StrokeThickness="0">
+                                <Label Text="{Binding Name}" 
+                                   FontSize="18" 
+                                   FontAttributes="Bold" 
+                                   HorizontalOptions="Center"/>
 
-                    </Border>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CategoryViewModel}}, Path=GoToProductCommand}" 
+                                    CommandParameter="{Binding Id}" />
+                                </Border.GestureRecognizers>
+
+                            </Border>
+                        <BoxView HeightRequest="0.5" BackgroundColor="LightGray"/>
+                    </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        </ScrollView>
+
+
+    <!-- Cart button -->
+    <Border Grid.Row="1"
+  Background="DarkOrange"
+      StrokeThickness="0"
+      VerticalOptions="End"
+      HorizontalOptions="FillAndExpand"
+      IsVisible="{Binding HasItemsInCart}">
+        <StackLayout Orientation="Horizontal"
+               VerticalOptions="Center"
+               HorizontalOptions="FillAndExpand"
+               Padding="10">
+
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoToCartCommand}" />
+            </StackLayout.GestureRecognizers>
+
+            <Grid VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="{Binding CartItemCount, StringFormat='You have {0} items in your Cart.'}"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Start"
+            FontSize="14"
+            TextColor="White" 
+            Grid.Column="0" />
+
+                <ImageButton Source="shopping_cart_icon_white.png"
+            WidthRequest="20" 
+            HeightRequest="20"
+                BackgroundColor="Transparent"
+                Grid.Column="1"
+                VerticalOptions="Center" />
+            </Grid>
+        </StackLayout>
+    </Border>
+
     </Grid>
+
 </ContentPage>

@@ -16,8 +16,6 @@
             Text="Go to Home Now"
             Clicked="OnRedirectButtonClicked"
             HorizontalOptions="Center"
-            BackgroundColor="Blue"
-            TextColor="White"
             Padding="10"/>
     </VerticalStackLayout>
 </ContentPage>

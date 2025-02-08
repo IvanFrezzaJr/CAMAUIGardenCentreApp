@@ -81,7 +81,8 @@ public partial class BasketViewModel : ObservableObject
     [RelayCommand]
     private async Task GoToCheckoutAsync()
     {
-        await Shell.Current.GoToAsync(nameof(CheckoutPage));
+        //await Shell.Current.GoToAsync(nameof(CheckoutPage));
+        await Shell.Current.GoToAsync("//MainPage/CheckoutPage");
     }
 
 }

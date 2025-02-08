@@ -7,72 +7,78 @@
              x:Class="CAMAUIGardenCentreApp.Views.BasketPage"
              Title="Shopping Cart">
 
-    <VerticalStackLayout Padding="10">
-
-        <Label Text="Shopping Basket" FontSize="24" FontAttributes="Bold"/>
 
 
+    <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Always">
+        <VerticalStackLayout Padding="10">
 
-        <CollectionView x:Name="BasketItemsCollectionView" ItemsSource="{Binding CartItems}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:CartItem">
+            <CollectionView x:Name="BasketItemsCollectionView" ItemsSource="{Binding CartItems}">
 
-                    <Grid Padding="10" ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
 
-                        <!-- Product Name -->
-                        <Label 
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Text="{Binding Product.Name}"
-                            FontSize="16"
-                            VerticalOptions="Center"/>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:CartItem">
 
-                        <!-- Unit Price -->
-                        <Label
-                             Grid.Row="1"
-                             Grid.Column="0"
-                            Text="{Binding Product.Price, StringFormat='Unit Price: {0:C}'}"
-                            FontSize="12"/>
+                        <VerticalStackLayout Padding="10">
+                            <Grid Padding="10" ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto">
 
-                        <HorizontalStackLayout 
-                            Grid.Column="1"
-                            Grid.Row="1"
-                            HorizontalOptions="Center">
-                            <Button 
-                                Text="-"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=DecreaseQuantityCommand}"
-                                CommandParameter="{Binding Product}"/>
+                                <VerticalStackLayout 
+                                  Grid.Row="0"
+                                  Grid.Column="0">
+                                    <!-- Product Name -->
+                                    <Label 
+                                    Text="{Binding Product.Name}"
+                                    FontSize="16"/>
 
-                            <Label 
-                                Text="{Binding Quantity}"
-                                FontSize="16"
-                                Padding="10,0"/>
+                                    <!-- Unit Price -->
+                                    <Label
+                                    Text="{Binding Product.Price, StringFormat='Unit Price: {0:C}'}"
+                                    FontSize="12"/>
+                                </VerticalStackLayout>
 
-                            <Button 
-                                Text="+"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=IncreaseQuantityCommand}"
-                                CommandParameter="{Binding Product}"/>
-                        </HorizontalStackLayout>
+                                <HorizontalStackLayout 
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalOptions="End"
+                                Margin="5">
+                                    <Button 
+                                    Text="-"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=DecreaseQuantityCommand}"
+                                    CommandParameter="{Binding Product}"/>
 
+                                    <Label 
+                                    Text="{Binding Quantity}"
+                                    FontSize="16"
+                                    Padding="10,0"/>
 
-                        
-                        <Button 
-                            Grid.Row="1"
-                            Grid.Column="3"
-                            Text="Remove" 
-                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=RemoveItemCommand}"
-                             CommandParameter="{Binding Product}"/>
+                                    <Button 
+                                    Text="+"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=IncreaseQuantityCommand}"
+                                    CommandParameter="{Binding Product}"/>
+                                </HorizontalStackLayout>
 
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                <Button 
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                BackgroundColor="PaleVioletRed"
+                                Text="Remove" 
+                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=RemoveItemCommand}"
+                                 CommandParameter="{Binding Product}"/>
 
-        <!-- Total Section -->
-        <Label Text="Total: " FontSize="20" FontAttributes="Bold"/>
-        <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
+                            </Grid>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Total Section -->
+            <Label Text="Total: " FontSize="20" FontAttributes="Bold"/>
+            <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
                FontSize="20" FontAttributes="Bold" TextColor="Green"/>
-        
-        <Button Text="Checkout" Command="{Binding GoToCheckoutCommand}"/>
-    </VerticalStackLayout>
+
+            <Button Text="Checkout" Command="{Binding GoToCheckoutCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

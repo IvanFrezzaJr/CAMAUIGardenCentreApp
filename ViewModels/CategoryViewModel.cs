@@ -11,10 +11,12 @@ namespace CAMAUIGardenCentreApp.ViewModels;
 public partial class CategoryViewModel : ObservableObject
 {
     private readonly DatabaseContext _context;
+    private readonly BasketService _basketService;
 
-    public CategoryViewModel(DatabaseContext context)
+    public CategoryViewModel(DatabaseContext context, BasketService basketService)
     {
         _context = context;
+        _basketService = basketService;
     }
 
     [ObservableProperty]
@@ -49,8 +51,16 @@ public partial class CategoryViewModel : ObservableObject
                 }
             }
         }, "Fetching categories...");
+
+        UpdateBasket();
     }
 
+    private void UpdateBasket()
+    {
+        // Update floating basket menu status 
+        HasItemsInCart = _basketService.GetCartItems().Any();
+        CartItemCount = _basketService.GetCartItems().Count();
+    }
 
     [RelayCommand]
     private async Task GoToProductAsync(int categoryId)
@@ -79,5 +89,11 @@ public partial class CategoryViewModel : ObservableObject
             IsBusy = false;
             BusyText = "Processing...";
         }
+    }
+
+    [RelayCommand]
+    private async Task GoToCartAsync()
+    {
+        await Shell.Current.GoToAsync(nameof(BasketPage));
     }
 }

@@ -26,6 +26,7 @@ public partial class ProductListViewModel : BaseViewModel
     {
         _productService = productService;
         _basketService = basketService;
+
     }
 
 
@@ -37,6 +38,9 @@ public partial class ProductListViewModel : BaseViewModel
 
     [ObservableProperty]
     private int _cartItemCount;
+
+    [ObservableProperty]
+    private string _categoryName;
 
 
 
@@ -51,6 +55,11 @@ public partial class ProductListViewModel : BaseViewModel
 
             IsBusy = true;
             Products.Clear();
+
+            var castegoryResult = await _productService.GeCategoryById(categoryId);
+            Category? category = castegoryResult.FirstOrDefault();
+            CategoryName = category.Name;
+
 
             var products = await _productService.GetProductsByCategoryId(categoryId);
             if (products is not null && products.Any())
@@ -81,7 +90,7 @@ public partial class ProductListViewModel : BaseViewModel
         // Update floating basket menu status 
         UpdateBasket();
 
-        await Shell.Current.DisplayAlert("Basket", $"{product.Name} added to basket!", "OK");
+        //await Shell.Current.DisplayAlert("Basket", $"{product.Name} added to basket!", "OK");
     }
 
     private void UpdateBasket()

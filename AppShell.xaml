@@ -28,7 +28,7 @@
         Route="MainPage" />
 
         <ShellContent
-        Title="Listing"
+        Title="Categories"
         ContentTemplate="{DataTemplate pages:CategoryPage}"
         Route="ListingPage" />
 

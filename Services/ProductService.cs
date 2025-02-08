@@ -25,4 +25,10 @@ public class ProductService
         return await _context.GetFileteredAsync<Product>(p => p.CategoryId == categoryId);
       
     }
+
+    public async Task<IEnumerable<Category>> GeCategoryById(int categoryId)
+    {
+        return await _context.GetFileteredAsync<Category>(p => p.Id == categoryId);
+
+    }
 }
