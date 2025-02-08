@@ -96,4 +96,20 @@ public partial class CategoryViewModel : ObservableObject
     {
         await Shell.Current.GoToAsync(nameof(BasketPage));
     }
+
+
+
+    [RelayCommand]
+    private async Task GoToProfileAsync()
+    {
+        await Shell.Current.GoToAsync(nameof(ProfilePage));
+    }
+
+
+    [RelayCommand]
+    private async Task GoToCategoryAsync()
+    {
+        await Shell.Current.GoToAsync(nameof(CategoryPage));
+    }
+
 }

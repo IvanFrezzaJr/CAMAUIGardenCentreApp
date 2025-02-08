@@ -5,8 +5,20 @@
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
              x:Class="CAMAUIGardenCentreApp.Views.ProductListPage"
              x:DataType="vm:ProductListViewModel"
-             Title="Product List Page">
+             BackgroundColor="{StaticResource Background}"
+             Title="GARDEN CENTRE APP">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Category"
+             IconImageSource="category_icon.png"
+             Command="{Binding GoToCategoryCommand}" />
+        <ToolbarItem Text="Cart"
+                     IconImageSource="shopping_cart_icon.png"
+                     Command="{Binding GoToCartCommand}" />
+        <ToolbarItem Text="Profile"
+             IconImageSource="profile_icon.png"
+             Command="{Binding GoToProfileCommand}" />
+    </ContentPage.ToolbarItems>
 
     <Grid RowDefinitions="*, Auto">
         <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Always">

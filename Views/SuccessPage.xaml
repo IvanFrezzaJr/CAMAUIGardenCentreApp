@@ -2,8 +2,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CAMAUIGardenCentreApp.Views.SuccessPage"
-             Title="Success Page"
+             Title="GARDEN CENTRE APP"
+             BackgroundColor="{StaticResource Background}"
              Loaded="OnPageLoaded">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Category"
+             IconImageSource="category_icon.png"
+             Command="{Binding GoToCategoryCommand}" />
+        <ToolbarItem Text="Cart"
+                     IconImageSource="shopping_cart_icon.png"
+                     Command="{Binding GoToCartCommand}" />
+        <ToolbarItem Text="Profile"
+             IconImageSource="profile_icon.png"
+             Command="{Binding GoToProfileCommand}" />
+    </ContentPage.ToolbarItems>
+
     <VerticalStackLayout Spacing="20" Padding="20" VerticalOptions="Center">
         <Label 
             Text="Success! You will be redirected shortly..."

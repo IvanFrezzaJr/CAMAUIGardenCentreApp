@@ -5,33 +5,48 @@
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
              x:DataType="vm:CheckoutViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.CheckoutPage"
-             Title="Checkout">
+             Title="GARDEN CENTRE APP">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Category"
+             IconImageSource="category_icon.png"
+             Command="{Binding GoToCategoryCommand}" />
+        <ToolbarItem Text="Cart"
+                     IconImageSource="shopping_cart_icon.png"
+                     Command="{Binding GoToCartCommand}" />
+        <ToolbarItem Text="Profile"
+             IconImageSource="profile_icon.png"
+             Command="{Binding GoToProfileCommand}" />
+    </ContentPage.ToolbarItems>
 
     <ScrollView VerticalScrollBarVisibility="Always">
-        <VerticalStackLayout Padding="10">
+        <VerticalStackLayout Padding="10"  Margin="10">
+            <Label HorizontalTextAlignment="Center" Text="Summary" Margin="10" FontSize="Header"/>
             <CollectionView ItemsSource="{Binding CartItems}">
+                
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"/>
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:CartItem">
-                            <VerticalStackLayout Padding="10">
-                                <Label Text="{Binding Product.Name}"
-                                   FontAttributes="Bold"
+                            <VerticalStackLayout Padding="10" >
+                                <Label HorizontalTextAlignment="Center" Text="{Binding Product.Name}"
                                    FontSize="16"/>
 
-                                <Label Text="{Binding Product.Price, StringFormat='Unit price: {0:C}'}"
-                                   FontSize="14"
+                            <Label HorizontalTextAlignment="Center" Text="{Binding Product.Price, StringFormat='Unit price: {0:C}'}"
+                                   FontSize="12"
                                    TextColor="Gray"/>
                             </VerticalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
+            <BoxView HeightRequest="1" BackgroundColor="LightGray"/>
+            
                 <!-- Total Section -->
-            <VerticalStackLayout VerticalOptions="Center" Padding="10">
-                <BoxView HeightRequest="2" BackgroundColor="LightGray"/>
+            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Padding="10" Margin="10">
+                
                 <HorizontalStackLayout Spacing="10"
                            VerticalOptions="Center">
                     <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"

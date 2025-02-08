@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
              x:DataType="vm:RegisterViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.RegisterPage"
+             BackgroundColor="{StaticResource Background}"
              Title="RegisterPage">
 
 

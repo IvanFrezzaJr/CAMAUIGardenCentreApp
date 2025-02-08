@@ -5,13 +5,25 @@
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
              x:DataType="vm:BasketViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.BasketPage"
-             Title="Shopping Cart">
+             BackgroundColor="{StaticResource Background}"
+             Title="GARDEN CENTRE APP">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Category"
+             IconImageSource="category_icon.png"
+             Command="{Binding GoToCategoryCommand}" />
+        <ToolbarItem Text="Cart"
+                     IconImageSource="shopping_cart_icon.png"
+                     Command="{Binding GoToCartCommand}" />
+        <ToolbarItem Text="Profile"
+             IconImageSource="profile_icon.png"
+             Command="{Binding GoToProfileCommand}" />
+    </ContentPage.ToolbarItems>
 
 
     <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Always">
         <VerticalStackLayout Padding="10">
-
+            <Label HorizontalTextAlignment="Center" Text="Shopping Cart" Margin="10" FontSize="Header"/>
             <CollectionView x:Name="BasketItemsCollectionView" ItemsSource="{Binding CartItems}">
 
                 <CollectionView.ItemsLayout>
@@ -35,7 +47,9 @@
                                     <!-- Unit Price -->
                                     <Label
                                     Text="{Binding Product.Price, StringFormat='Unit Price: {0:C}'}"
-                                    FontSize="12"/>
+                                    FontSize="12"
+                                    TextColor="Gray"
+                                     />
                                 </VerticalStackLayout>
 
                                 <HorizontalStackLayout 
@@ -44,12 +58,15 @@
                                 HorizontalOptions="End"
                                 Margin="5">
                                     <Button 
+                                     Padding="10"
                                     Text="-"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel}}, Path=DecreaseQuantityCommand}"
                                     CommandParameter="{Binding Product}"/>
 
                                     <Label 
                                     Text="{Binding Quantity}"
+                                    Margin="0,10"
+                                    FontAttributes="Bold"
                                     FontSize="16"
                                     Padding="10,0"/>
 
@@ -73,12 +90,14 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Total Section -->
-            <Label Text="Total: " FontSize="20" FontAttributes="Bold"/>
-            <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
+            <HorizontalStackLayout Padding="10" Margin="10" HorizontalOptions="Center">
+                <!-- Total Section -->
+                <Label Text="Total: " FontSize="20" FontAttributes="Bold"/>
+                <Label  Margin="5,0"  Text="{Binding TotalPrice, StringFormat='{0:C}'}"
                FontSize="20" FontAttributes="Bold" TextColor="Green"/>
 
-            <Button Text="Checkout" Command="{Binding GoToCheckoutCommand}"/>
+                <Button Padding="15,0" Margin="5,-5" Text="Checkout" Command="{Binding GoToCheckoutCommand}"/>
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

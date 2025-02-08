@@ -5,16 +5,32 @@
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
              x:DataType="vm:ProfileViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.ProfilePage"
-             Title="Profile Page">
+             BackgroundColor="{StaticResource Background}"
+             Title="GARDEN CENTRE APP">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Category"
+             IconImageSource="category_icon.png"
+             Command="{Binding GoToCategoryCommand}" />
+        <ToolbarItem Text="Cart"
+                     IconImageSource="shopping_cart_icon.png"
+                     Command="{Binding GoToCartCommand}" />
+        <ToolbarItem Text="Profile"
+             IconImageSource="profile_icon.png"
+             Command="{Binding GoToProfileCommand}" />
+    </ContentPage.ToolbarItems>
 
     <VerticalStackLayout Padding="25" Spacing="25">
         <StackLayout x:Name="CorporateSection" IsVisible="{Binding IsCorporateUser}">
-            <HorizontalStackLayout  Padding="10">
-                <Label Text="Next Billing Date:" FontSize="18" FontAttributes="Bold"/>
-                <Label Text="{Binding NextBillingDate}" FontSize="16"/>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label Margin="10, 0" Text="Next Billing Date:" FontSize="16" />
+                <Label Margin="0, 0" TextColor="PaleVioletRed" FontAttributes="Bold" Text="{Binding NextBillingDate}" FontSize="16"/>
             </HorizontalStackLayout>
 
-            <Label   Padding="10" Text="Items to be Billed:" FontSize="18" FontAttributes="Bold"/>
+            <VerticalStackLayout>
+            <Label Margin="10,10" Padding="10" HorizontalOptions="Center" 
+                   HorizontalTextAlignment="Center" Text="Next purchases to be billed" 
+                   FontSize="16" FontAttributes="Bold"/>
             <!-- Declaração do CollectionView -->
             <CollectionView ItemsSource="{Binding BillingItems}">
                 <!-- Cabeçalho -->
@@ -25,10 +41,12 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Label Text="Id" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                <Label Text="Total" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
-                            </Grid>
+                                    <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label FontAttributes="Bold" Text="Id" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"  Grid.Column="0"/>
+                                <Label FontAttributes="Bold" Text="Total" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
+                                <Label FontAttributes="Bold" Text="Purchase Date" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2"/>
+                                </Grid>
                         </Border>
                         <BoxView HeightRequest="0.5" BackgroundColor="LightGray"/>
                     </VerticalStackLayout>
@@ -37,21 +55,23 @@
                 <!-- Itens -->
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Checkout">
-                        <Border StrokeThickness="1" Stroke="LightGray">
-                            <Grid>
+                        <Border StrokeThickness="0.3" Stroke="LightGray">
+                            <Grid Padding="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Label Text="{Binding Id}" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                <Label Text="{Binding TotalAmount}" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
-                            </Grid>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Margin="0,10" Text="{Binding Id}" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"  Grid.Column="0"/>
+                                <Label Margin="0,10" Text="{Binding TotalAmount}" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
+                                <Label Margin="0,10" Text="{Binding CreatedAt}" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2"/>
+                                </Grid>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-
+            </VerticalStackLayout>
         </StackLayout>
 
         <Button Text="Logout" Command="{Binding LogoutCommand}"/>
