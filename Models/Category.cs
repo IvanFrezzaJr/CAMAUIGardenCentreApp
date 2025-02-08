@@ -16,4 +16,24 @@ public class Category
 
     [Column("name")]
     public string Name { get; set; }
+
+
+    [Column("description")]
+    public string Description { get; set; }
+
+
+    private string _imageUrl;
+
+    [Column("image_url")]
+    public string ImageUrl
+    {
+        get
+        {
+            return _imageUrl;
+        }
+        set
+        {
+            _imageUrl = value;
+        }
+    }
 }

@@ -12,14 +12,28 @@
         <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Always">
             <VerticalStackLayout Padding="10">
                 <!-- Lista de Produtos -->
-                    <Label Text="{Binding CategoryName}"
+                <Image Source="{Binding CategoryImage}" 
+                        Aspect="AspectFill" 
+                        HorizontalOptions="FillAndExpand" 
+                        HeightRequest="300" 
+                        VerticalOptions="Center"/>
+                <Label Text="{Binding CategoryName}"
                          HorizontalOptions="Center"
                           FontSize="16"
                            FontAttributes="Bold" 
                             Padding="10"/>
-                    <BoxView HeightRequest="1" BackgroundColor="Gray" Margin="0,10"/>
-                
-                    <CollectionView Grid.Row="0"
+
+                <Label Text="{Binding CategoryDescription}" 
+                    Padding="10" 
+                    Margin="20"
+                    TextColor="{StaticResource Primary}" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center" 
+                    HorizontalTextAlignment="Center"
+                    FontSize="Caption" />
+
+
+                <CollectionView Grid.Row="0"
                     ItemsSource="{Binding Products}">
 
                     <CollectionView.ItemsLayout>

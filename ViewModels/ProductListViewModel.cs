@@ -42,6 +42,12 @@ public partial class ProductListViewModel : BaseViewModel
     [ObservableProperty]
     private string _categoryName;
 
+    [ObservableProperty]
+    private string _categoryImage;
+
+    [ObservableProperty]
+    private string _categoryDescription;
+
 
 
     public async Task LoadProductsByCategoryAsync(int categoryId)
@@ -59,6 +65,8 @@ public partial class ProductListViewModel : BaseViewModel
             var castegoryResult = await _productService.GeCategoryById(categoryId);
             Category? category = castegoryResult.FirstOrDefault();
             CategoryName = category.Name;
+            CategoryImage = category.ImageUrl;
+            CategoryDescription = category.Description;
 
 
             var products = await _productService.GetProductsByCategoryId(categoryId);

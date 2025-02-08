@@ -265,15 +265,21 @@ namespace CAMAUIGardenCentreApp.Data
                 {
                     new Category
                     {
-                        Name = "Plants"
+                        Name = "Plants",
+                        ImageUrl = "banner1.jpg",
+                        Description = "Bring life to your garden with our diverse selection of plants. From vibrant flowers to lush greenery and exotic species, we have the perfect plants to suit any space, indoors or outdoors."
                     },
                     new Category
                     {
-                        Name = "Tools"
+                        Name = "Tools",
+                        ImageUrl = "banner2.jpg",
+                        Description = "Make gardening easier with our high-quality tools. Whether you're planting, pruning, or landscaping, our durable and ergonomic tools help you get the job done with precision and ease."
                     },
                     new Category
                     {
-                        Name = "Garden Care"
+                        Name = "Garden Care",
+                        ImageUrl = "banner3.jpg",
+                        Description = "Keep your garden thriving with our essential care products. From fertilizers and pest control to soil enhancers and watering solutions, we provide everything you need for a healthy and beautiful garden."
                     }
                 };
 

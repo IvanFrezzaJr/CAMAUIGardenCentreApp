@@ -1,5 +1,7 @@
 ﻿using CAMAUIGardenCentreApp.Services;
 using CAMAUIGardenCentreApp.ViewModels;
+using CAMAUIGardenCentreApp.Models;
+using System.Collections.ObjectModel;
 
 
 namespace CAMAUIGardenCentreApp.Views;
@@ -10,20 +12,19 @@ public partial class MainPage : ContentPage
     private readonly AuthService _authService;
     private readonly MainViewModel _viewModel;
 
-
     public MainPage(AuthService authService, MainViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
         _viewModel = viewModel;
         SizeChanged += OnSizeChanged;
-
     }
 
     protected async override void OnAppearing()
     {
         base.OnAppearing();
         await _viewModel.LoadProductsAsync();
+        await _viewModel.LoadCarouselItemsAsync();
     }
 
     private void OnSizeChanged(object sender, EventArgs e)

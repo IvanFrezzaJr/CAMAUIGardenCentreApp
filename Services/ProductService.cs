@@ -20,6 +20,12 @@ public class ProductService
         return await _context.GetAllAsync<Product>();
     }
 
+
+    public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+    {
+        return await _context.GetAllAsync<Category>();
+    }
+
     public async Task<IEnumerable<Product>> GetProductsByCategoryId(int categoryId)
     {
         return await _context.GetFileteredAsync<Product>(p => p.CategoryId == categoryId);
@@ -29,6 +35,13 @@ public class ProductService
     public async Task<IEnumerable<Category>> GeCategoryById(int categoryId)
     {
         return await _context.GetFileteredAsync<Category>(p => p.Id == categoryId);
+
+    }
+
+
+    public async Task<IEnumerable<Category>> GeCategoryByName(string categoryName)
+    {
+        return await _context.GetFileteredAsync<Category>(p => p.Name == categoryName);
 
     }
 }
