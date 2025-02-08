@@ -317,6 +317,31 @@ namespace CAMAUIGardenCentreApp.Data
                     await AddItemAsync(u);
                 }
             }
+
+            var bruna = await GetFileteredAsync<User>(p => p.Login == "bruna");
+            Account account = new Account
+            {
+                BillingDay = 15,
+                BillingEmail = "bruna@gmail.com",
+                CompanyName = "ATU",
+                CompanyTaxID = "12341234",
+                UserId = bruna.FirstOrDefault().Id
+            };
+
+            await AddItemAsync(account);
+
+
+            var ivan = await GetFileteredAsync<User>(p => p.Login == "ivan");
+            CreditCard creditCard = new CreditCard
+            {
+                UserId = ivan.FirstOrDefault().Id,
+                CardholderName = "Ivan Frezza",
+                CardNumber = 1234123451245,
+                cvv = 323,
+                ExpirationDate = "202802"
+            };
+
+            await AddItemAsync(creditCard);
         }
 
 

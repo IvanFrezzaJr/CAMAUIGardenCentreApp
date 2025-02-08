@@ -12,7 +12,7 @@
         <ToolbarItem Text="Cart"
                      IconImageSource="shopping_cart_icon.png"
                      Command="{Binding GoToCartCommand}" />
-        <ToolbarItem Text="Cart"
+        <ToolbarItem Text="Profile"
              IconImageSource="profile_icon.png"
              Command="{Binding GoToProfileCommand}" />
     </ContentPage.ToolbarItems>
