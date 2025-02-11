@@ -316,31 +316,32 @@ namespace CAMAUIGardenCentreApp.Data
                 {
                     await AddItemAsync(u);
                 }
+
+                var bruna = await GetFileteredAsync<User>(p => p.Name == "bruna" && p.Phone == "2345");
+                Account account = new Account
+                {
+                    BillingDay = 15,
+                    BillingEmail = "bruna@gmail.com",
+                    CompanyName = "ATU",
+                    UserId = bruna.FirstOrDefault().Id
+                };
+
+                await AddItemAsync(account);
+
+
+                var ivan = await GetFileteredAsync<User>(p => p.Name == "ivan" && p.Phone == "1234");
+                CreditCard creditCard = new CreditCard
+                {
+                    UserId = ivan.FirstOrDefault().Id,
+                    CardholderName = "Ivan Frezza",
+                    CardNumber = 1234123451245,
+                    cvv = 323,
+                    ExpirationDate = "202802"
+                };
+
+                await AddItemAsync(creditCard);
             }
-
-            var bruna = await GetFileteredAsync<User>(p => p.Name == "bruna" && p.Phone == "2345");
-            Account account = new Account
-            {
-                BillingDay = 15,
-                BillingEmail = "bruna@gmail.com",
-                CompanyName = "ATU",
-                UserId = bruna.FirstOrDefault().Id
-            };
-
-            await AddItemAsync(account);
-
-
-            var ivan = await GetFileteredAsync<User>(p => p.Name == "ivan" && p.Phone == "1234");
-            CreditCard creditCard = new CreditCard
-            {
-                UserId = ivan.FirstOrDefault().Id,
-                CardholderName = "Ivan Frezza",
-                CardNumber = 1234123451245,
-                cvv = 323,
-                ExpirationDate = "202802"
-            };
-
-            await AddItemAsync(creditCard);
+ 
         }
 
 

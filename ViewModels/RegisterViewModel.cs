@@ -89,7 +89,7 @@ namespace CAMAUIGardenCentreApp.ViewModels
         private string billingEmail;
 
         [ObservableProperty]
-        private int billingDay = 1;
+        private int? billingDay;
 
         private List<string> _validationErrors = new List<string>();
 
@@ -169,14 +169,7 @@ namespace CAMAUIGardenCentreApp.ViewModels
             // Validate the name and phone
             if (string.IsNullOrWhiteSpace(Phone) || string.IsNullOrWhiteSpace(Name))
             {
-                AddValidationError("Phone and Password are required.");
-            }
-
-            // Check if the user already exists
-            var users = await _registerService.GetUserByPhoneAsync(Phone);
-            if (users is not null && users.Any())
-            {
-                AddValidationError("User already exists.");
+                AddValidationError("Phone and Name are required.");
             }
 
             // Validate personal fields
@@ -201,8 +194,15 @@ namespace CAMAUIGardenCentreApp.ViewModels
                 }
             }
 
+            // Check if the user already exists
+            var users = await _registerService.GetUserByPhoneAsync(Phone);
+            if (users is not null && users.Any())
+            {
+                AddValidationError("Phone already exists. Try another number");
+            }
+
             // If there are validation errors, stop the registration process
-            if (_validationErrors.Any())
+            if (_validationErrors.Count != 0)
             {
                 string allErrors = string.Join("\n", _validationErrors);
                 await Application.Current.MainPage.DisplayAlert("Validation Errors", allErrors, "OK");
@@ -240,7 +240,7 @@ namespace CAMAUIGardenCentreApp.ViewModels
                     UserId = user.Id,
                     CompanyName = companyName,
                     BillingEmail = billingEmail,
-                    BillingDay = billingDay,
+                    BillingDay = (int)billingDay,
                 };
 
 

@@ -54,7 +54,7 @@ public class RegisterService
             return null; // Validation: Login must not be empty
         }
 
-        return await _dbContext.GetFileteredAsync<User>(u => u.Name == phone);
+        return await _dbContext.GetFileteredAsync<User>(u => u.Phone == phone);
     }
 
 

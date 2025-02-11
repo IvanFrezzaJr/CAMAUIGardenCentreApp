@@ -10,8 +10,8 @@
 
 
     <ScrollView>
-    <VerticalStackLayout Padding="25" Spacing="25">
-        <Label Text="Select Account Type:" />
+        <VerticalStackLayout Padding="25" Spacing="25" HorizontalOptions="Center">
+            <Label Text="Select Account Type"  HorizontalOptions="Center" FontSize="Medium"/>
 
         <StackLayout Orientation="Horizontal">
             <RadioButton Content="Personal" IsChecked="{Binding IsPersonal, Mode=TwoWay}"/>
@@ -21,11 +21,13 @@
         <Entry Placeholder="Name" Text="{Binding Name, Mode=TwoWay}" />
         <Entry Placeholder="Phone" Text="{Binding Phone, Mode=TwoWay}" />
 
-        <!-- Campos para Corporate -->
+        <Label Text="Billing info" FontSize="Medium" HorizontalOptions="Center" />
+
+            <!-- Campos para Corporate -->
         <StackLayout IsVisible="{Binding IsCorporate}">
             <Entry Placeholder="Company Name" Text="{Binding CompanyName, Mode=TwoWay}" />
             <Entry Placeholder="Billing Email" Text="{Binding BillingEmail, Mode=TwoWay}" />
-            <Entry Placeholder="Billing Day" Text="{Binding BillingDay, Mode=TwoWay}"  Keyboard="Numeric"/>
+                <Entry Placeholder="Billing Day" Text="{Binding BillingDay, Mode=TwoWay}"  Keyboard="Numeric"  MaxLength="2"/>
         </StackLayout>
 
         <!-- Campos para Personal -->

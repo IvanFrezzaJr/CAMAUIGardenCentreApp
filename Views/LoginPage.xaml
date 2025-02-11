@@ -6,8 +6,10 @@
              x:DataType="vm:LoginViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.LoginPage"
              Title="GARDEN CENTRE APP">
+    
     <VerticalStackLayout Padding="25"
-                         Spacing="25">
+                         Spacing="25"
+                         HorizontalOptions="Center">
         
         <Label HorizontalTextAlignment="Center" Text="Login" Margin="10" FontSize="Header"/>
 
@@ -17,11 +19,17 @@
 
         <Button Text="Login" Command="{Binding LoginCommand}" />
 
-        <Label Text="Don't have an account? Register here.">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding RegisterCommand}" />
-            </Label.GestureRecognizers>
-        </Label>
+        <HorizontalStackLayout>
+            <Label Text="Don't have an account? "/>
+
+            <Label Text=" Register here "  TextColor="PaleVioletRed" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text=" ."/>
+        </HorizontalStackLayout>
+       
 
     </VerticalStackLayout>
 </ContentPage>
