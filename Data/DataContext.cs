@@ -301,14 +301,14 @@ namespace CAMAUIGardenCentreApp.Data
                 {
                     new User
                     {      
-                        Login = "ivan",
-                        Password = PasswordHasher.HashPassword("1234"),
+                        Name = "ivan",
+                        Phone = "1234",
                         Type = "personal"
                     },
                     new User
                     {
-                        Login = "bruna",
-                        Password = PasswordHasher.HashPassword("1234"),
+                        Name = "bruna",
+                        Phone = "2345",
                         Type = "corporate"
                     }
                 };
@@ -318,20 +318,19 @@ namespace CAMAUIGardenCentreApp.Data
                 }
             }
 
-            var bruna = await GetFileteredAsync<User>(p => p.Login == "bruna");
+            var bruna = await GetFileteredAsync<User>(p => p.Name == "bruna" && p.Phone == "2345");
             Account account = new Account
             {
                 BillingDay = 15,
                 BillingEmail = "bruna@gmail.com",
                 CompanyName = "ATU",
-                CompanyTaxID = "12341234",
                 UserId = bruna.FirstOrDefault().Id
             };
 
             await AddItemAsync(account);
 
 
-            var ivan = await GetFileteredAsync<User>(p => p.Login == "ivan");
+            var ivan = await GetFileteredAsync<User>(p => p.Name == "ivan" && p.Phone == "1234");
             CreditCard creditCard = new CreditCard
             {
                 UserId = ivan.FirstOrDefault().Id,

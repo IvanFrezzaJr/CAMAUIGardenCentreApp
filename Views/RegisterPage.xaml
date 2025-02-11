@@ -18,16 +18,15 @@
             <RadioButton Content="Corporate" IsChecked="{Binding IsCorporate, Mode=TwoWay}" />
         </StackLayout>
 
-        <Entry Placeholder="Login" Text="{Binding Login, Mode=TwoWay}" />
-        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password, Mode=TwoWay}" />
+        <Entry Placeholder="Name" Text="{Binding Name, Mode=TwoWay}" />
+        <Entry Placeholder="Phone" Text="{Binding Phone, Mode=TwoWay}" />
 
         <!-- Campos para Corporate -->
         <StackLayout IsVisible="{Binding IsCorporate}">
             <Entry Placeholder="Company Name" Text="{Binding CompanyName, Mode=TwoWay}" />
-            <Entry Placeholder="Company Tax ID" Text="{Binding CompanyTaxID, Mode=TwoWay}" />
             <Entry Placeholder="Billing Email" Text="{Binding BillingEmail, Mode=TwoWay}" />
             <Entry Placeholder="Billing Day" Text="{Binding BillingDay, Mode=TwoWay}"  Keyboard="Numeric"/>
-            </StackLayout>
+        </StackLayout>
 
         <!-- Campos para Personal -->
             <StackLayout IsVisible="{Binding IsPersonal}">

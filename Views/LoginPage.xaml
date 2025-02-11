@@ -5,16 +5,14 @@
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
              x:DataType="vm:LoginViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.LoginPage"
-             Title="LoginPage">
+             Title="GARDEN CENTRE APP">
     <VerticalStackLayout Padding="25"
                          Spacing="25">
-        <Label 
-            Text="Login Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        
+        <Label HorizontalTextAlignment="Center" Text="Login" Margin="10" FontSize="Header"/>
 
-        <Entry Placeholder="Login" Text="{Binding Email}" />
-        <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
+        <Entry Placeholder="Name" Text="{Binding Name}" />
+        <Entry Placeholder="Phone" Text="{Binding Phone}" />
 
 
         <Button Text="Login" Command="{Binding LoginCommand}" />

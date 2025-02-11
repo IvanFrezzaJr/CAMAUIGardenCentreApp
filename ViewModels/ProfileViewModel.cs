@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls;
 
 
 using CAMAUIGardenCentreApp.Data;
 using CAMAUIGardenCentreApp.Services;
 using CAMAUIGardenCentreApp.Views;
 using CAMAUIGardenCentreApp.Models;
-using System.Diagnostics;
 using System.Collections.ObjectModel;
 
 
@@ -46,6 +39,19 @@ public partial class ProfileViewModel : ObservableObject
         }
     }
 
+
+
+    private ObservableCollection<Checkout> _purchasedItems = new();
+    public ObservableCollection<Checkout> PurchasedItems
+    {
+        get => _purchasedItems;
+        set
+        {
+            SetProperty(ref _purchasedItems, value);
+            OnPropertyChanged(nameof(PurchasedItems));
+        }
+    }
+
     int billingDay = 15;
 
     int currentUser = 0;
@@ -58,11 +64,12 @@ public partial class ProfileViewModel : ObservableObject
 
         currentUser = Preferences.Default.Get<int>("LogedUserId", 0);
 
-        LoadData(currentUser);
+        LoadBillingData(currentUser);
+        LoadPurchasedData(currentUser);
 
     }
 
-    private async void LoadData(int userId)
+    private async void LoadBillingData(int userId)
     {
 
         await GetCurrentUserBillingDate(userId);
@@ -92,6 +99,32 @@ public partial class ProfileViewModel : ObservableObject
                 BillingItems.Add(item);
             }
         }
+    }
+
+
+
+
+    private async void LoadPurchasedData(int userId)
+    {
+
+        var users = await _registerService.GetUserByIdAsync(userId);
+        var user = users.FirstOrDefault();
+
+        if (user == null)
+        {
+            return;
+        }
+
+        var items = await _checkoutService.GetPaidCheckoutsAsync(userId);
+
+
+
+        PurchasedItems.Clear();
+        foreach (var item in items)
+        {
+            PurchasedItems.Add(item);
+        }
+        
     }
 
 

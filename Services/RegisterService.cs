@@ -1,8 +1,6 @@
 ﻿using CAMAUIGardenCentreApp.Data;
 using CAMAUIGardenCentreApp.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+
 
 namespace CAMAUIGardenCentreApp.Services;
 
@@ -18,7 +16,7 @@ public class RegisterService
 
     public async Task<bool> AddUserAsync(User user)
     {
-        if (user == null || string.IsNullOrWhiteSpace(user.Login) || string.IsNullOrWhiteSpace(user.Password))
+        if (user == null || string.IsNullOrWhiteSpace(user.Name) || string.IsNullOrWhiteSpace(user.Phone))
         {
             return false; // Validation: User object must have valid login and password
         }
@@ -40,7 +38,7 @@ public class RegisterService
 
     public async Task<bool> AddAccountAsync(Account account)
     {
-        if (account == null || string.IsNullOrWhiteSpace(account.CompanyName) || string.IsNullOrWhiteSpace(account.CompanyTaxID) || string.IsNullOrWhiteSpace(account.BillingEmail))
+        if (account == null || string.IsNullOrWhiteSpace(account.CompanyName) ||  string.IsNullOrWhiteSpace(account.BillingEmail))
         {
             return false; // Validation: User object must have valid login and password
         }
@@ -49,14 +47,14 @@ public class RegisterService
     }
 
 
-    public async Task<IEnumerable<User>> GetUserByLoginAsync(string login)
+    public async Task<IEnumerable<User>> GetUserByPhoneAsync(string phone)
     {
-        if (string.IsNullOrWhiteSpace(login))
+        if (string.IsNullOrWhiteSpace(phone))
         {
             return null; // Validation: Login must not be empty
         }
 
-        return await _dbContext.GetFileteredAsync<User>(u => u.Login == login);
+        return await _dbContext.GetFileteredAsync<User>(u => u.Name == phone);
     }
 
 

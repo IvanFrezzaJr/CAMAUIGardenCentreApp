@@ -15,9 +15,6 @@ namespace CAMAUIGardenCentreApp.Models
         [Column("company_name")]
         public string CompanyName { get; set; }
 
-        [Column("company_tax_id")]
-        public string CompanyTaxID { get; set; }
-
         [Column("billing_email")]
         public string BillingEmail { get; set; }
 

@@ -1,21 +1,20 @@
 ﻿using SQLite;
 
-namespace CAMAUIGardenCentreApp.Models
+namespace CAMAUIGardenCentreApp.Models;
+
+[Table("user")]
+public class User
 {
-    [Table("user")]
-    public class User
-    {
-        [PrimaryKey, AutoIncrement]
-        [Column("id")]
-        public int Id { get; set; }
+    [PrimaryKey, AutoIncrement]
+    [Column("id")]
+    public int Id { get; set; }
 
-        [Column("login")]
-        public string Login { get; set; }
+    [Column("Name")]
+    public string Name { get; set; }
 
-        [Column("password")]
-        public string Password { get; set; }
+    [Column("phone")]
+    public string Phone { get; set; }
 
-        [Column("type")]
-        public string Type { get; set; }
-    }
+    [Column("type")]
+    public string Type { get; set; }
 }

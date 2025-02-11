@@ -95,6 +95,11 @@ public class CheckoutService
         return await _dbContext.GetFileteredAsync<Checkout>(c => c.UserId == userId && !c.IsPaid);
     }
 
+    public async Task<IEnumerable<Checkout>> GetPaidCheckoutsAsync(int userId)
+    {
+        return await _dbContext.GetFileteredAsync<Checkout>(c => c.UserId == userId && c.IsPaid);
+    }
+
 
     public async Task UpdateOverdueCheckoutsAsync(int userId, int billingDay)
     {

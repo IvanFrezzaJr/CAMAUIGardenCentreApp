@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAMAUIGardenCentreApp.Models;
+﻿using CAMAUIGardenCentreApp.Models;
 using CAMAUIGardenCentreApp.Data;
-using System.Diagnostics;
 namespace CAMAUIGardenCentreApp.Services;
 
 
@@ -39,9 +33,9 @@ public class AuthService
     }
 
 
-    public async Task<bool> Authenticate(string login, string password)
+    public async Task<bool> Authenticate(string name, string phone)
     {
-        IEnumerable<User> users = await _context.GetFileteredAsync<User>(p => p.Login == login);
+        IEnumerable<User> users = await _context.GetFileteredAsync<User>(p => p.Name == name && p.Phone == phone);
 
         if (users is not null && users.Any())
         {
@@ -49,10 +43,12 @@ public class AuthService
 
             Preferences.Default.Set<int>(LogedUserId, user.Id);
 
+            return true;
 
-            bool isPasswordCorrect = PasswordHasher.VerifyPassword(password, user.Password);
 
-            return (isPasswordCorrect) ? true : false;
+            //bool isPasswordCorrect = PasswordHasher.VerifyPassword(password, user.Password);
+
+            //return (isPasswordCorrect) ? true : false;
         }
 
         return false;

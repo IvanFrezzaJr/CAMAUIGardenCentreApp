@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls;
-using CAMAUIGardenCentreApp.Data;
 using CAMAUIGardenCentreApp.Services;
-using CAMAUIGardenCentreApp.Views;
 using CAMAUIGardenCentreApp.Models;
 using System.Diagnostics;
 
@@ -45,10 +38,10 @@ namespace CAMAUIGardenCentreApp.ViewModels
         }
 
         [ObservableProperty]
-        private string login;
+        private string name;
 
         [ObservableProperty]
-        private string password;
+        private string phone;
 
         // personal fields
         [ObservableProperty]
@@ -91,8 +84,6 @@ namespace CAMAUIGardenCentreApp.ViewModels
         [ObservableProperty]
         private string companyName;
 
-        [ObservableProperty]
-        private string companyTaxID;
 
         [ObservableProperty]
         private string billingEmail;
@@ -125,7 +116,6 @@ namespace CAMAUIGardenCentreApp.ViewModels
 
             if (CardNumber.ToString().Length < 13 || CardNumber.ToString().Length > 19)
             {
-                Debug.WriteLine($"---------------------------------- {CardNumber}");
                 AddValidationError("Card number must be between 13 and 19 digits.");
             }
             else if (CardNumber < 0)
@@ -164,10 +154,6 @@ namespace CAMAUIGardenCentreApp.ViewModels
                 AddValidationError("Company name is required.");
             }
 
-            if (string.IsNullOrWhiteSpace(CompanyTaxID)) { 
-                AddValidationError("Company Tax ID is required.");
-            }
-
             if (string.IsNullOrWhiteSpace(BillingEmail) || !Regex.IsMatch(BillingEmail, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) { 
                 AddValidationError("Billing email is required and must be a valid email address.");
             }
@@ -180,14 +166,14 @@ namespace CAMAUIGardenCentreApp.ViewModels
         {
             ClearValidationErrors(); // Clear previous errors
 
-            // Validate the login and password
-            if (string.IsNullOrWhiteSpace(Login) || string.IsNullOrWhiteSpace(Password))
+            // Validate the name and phone
+            if (string.IsNullOrWhiteSpace(Phone) || string.IsNullOrWhiteSpace(Name))
             {
-                AddValidationError("Login and Password are required.");
+                AddValidationError("Phone and Password are required.");
             }
 
             // Check if the user already exists
-            var users = await _registerService.GetUserByLoginAsync(Login);
+            var users = await _registerService.GetUserByPhoneAsync(Phone);
             if (users is not null && users.Any())
             {
                 AddValidationError("User already exists.");
@@ -223,13 +209,10 @@ namespace CAMAUIGardenCentreApp.ViewModels
                 return;
             }
 
-            // Proceed to create the user only if all validations pass
-            string passwordHash = PasswordHasher.HashPassword(Password);
-
             User user = new User
             {
-                Login = Login,
-                Password = passwordHash,
+                Name = Name,
+                Phone = Phone,
                 Type = IsPersonal ? "personal" : "corporate"
             };
 
@@ -256,7 +239,6 @@ namespace CAMAUIGardenCentreApp.ViewModels
                 {
                     UserId = user.Id,
                     CompanyName = companyName,
-                    CompanyTaxID = companyTaxID,
                     BillingEmail = billingEmail,
                     BillingDay = billingDay,
                 };
@@ -271,7 +253,7 @@ namespace CAMAUIGardenCentreApp.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Success", "Registration successful!", "OK");
 
-                if (await _authService.Authenticate(Login, Password))
+                if (await _authService.Authenticate(Name, Phone))
                 {
                     _authService.Login();
                     // Navigate to the main page
@@ -280,7 +262,7 @@ namespace CAMAUIGardenCentreApp.ViewModels
                 else
                 {
                     // Show error message if authentication fails
-                    await Application.Current.MainPage.DisplayAlert("Error", "Invalid login or password", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error", "Invalid name or phone", "OK");
                 }
             }
             else
