@@ -6,42 +6,74 @@
              x:DataType="vm:RegisterViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.RegisterPage"
              BackgroundColor="{StaticResource Background}"
-             Title="RegisterPage">
+             Title="GARDEN CENTRE APP">
 
 
-    <ScrollView>
+    <ScrollView
+         Padding="25"    HorizontalOptions="Center">
+
+       
+        
         <VerticalStackLayout Padding="25" Spacing="25" HorizontalOptions="Center">
-            <Label Text="Select Account Type"  HorizontalOptions="Center" FontSize="Medium"/>
+            <Label HorizontalTextAlignment="Center" Text="Sign up" Margin="10" FontSize="Header"/>
+            
+            <Label Text="Select Account Type"  HorizontalOptions="Center" FontSize="Micro"/>
 
-        <StackLayout Orientation="Horizontal">
-            <RadioButton Content="Personal" IsChecked="{Binding IsPersonal, Mode=TwoWay}"/>
-            <RadioButton Content="Corporate" IsChecked="{Binding IsCorporate, Mode=TwoWay}" />
-        </StackLayout>
 
-        <Entry Placeholder="Name" Text="{Binding Name, Mode=TwoWay}" />
-        <Entry Placeholder="Phone" Text="{Binding Phone, Mode=TwoWay}" />
-
-        <Label Text="Billing info" FontSize="Medium" HorizontalOptions="Center" />
-
-            <!-- Campos para Corporate -->
-        <StackLayout IsVisible="{Binding IsCorporate}">
-            <Entry Placeholder="Company Name" Text="{Binding CompanyName, Mode=TwoWay}" />
-            <Entry Placeholder="Billing Email" Text="{Binding BillingEmail, Mode=TwoWay}" />
-                <Entry Placeholder="Billing Day" Text="{Binding BillingDay, Mode=TwoWay}"  Keyboard="Numeric"  MaxLength="2"/>
-        </StackLayout>
-
-        <!-- Campos para Personal -->
-            <StackLayout IsVisible="{Binding IsPersonal}">
-                <Entry Placeholder="Cardholder Name" Text="{Binding CardholderName, Mode=TwoWay}" />
-
-                <Entry Placeholder="Card Number" Text="{Binding CardNumber, Mode=TwoWay}"  Keyboard="Numeric"/>
-
-                <Entry Placeholder="Expiration Date (MM/YY)" Text="{Binding ExpirationDate, Mode=TwoWay}" />
-
-                <Entry Placeholder="CVV" Text="{Binding Cvv, Mode=TwoWay}" IsPassword="True" Keyboard="Numeric" MaxLength="5" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <RadioButton  Margin="20,0" TextColor="ForestGreen" Content="Corporate 1" IsChecked="{Binding IsPersonal, Mode=TwoWay}"/>
+                <RadioButton Margin="20,0" TextColor="ForestGreen" Content="Corporate 2" IsChecked="{Binding IsCorporate, Mode=TwoWay}" />
             </StackLayout>
 
+             <Border  Stroke="Gray" StrokeThickness="0.1" Padding="10" >
+                <VerticalStackLayout>
+                    <HorizontalStackLayout>
+                        <VerticalStackLayout  Margin="20">
+                                <Label Text="Authentication Info" FontSize="Medium" HorizontalOptions="Start" />
+                            <StackLayout  Padding="0,20">
+                                <Entry Placeholder="Name" Text="{Binding Name, Mode=TwoWay}" />
+                                <Entry Placeholder="Phone" Text="{Binding Phone, Mode=TwoWay}" />
+                            </StackLayout>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout  Margin="20">
+                            <Label Text="Billing info" FontSize="Medium" HorizontalOptions="Start" />
+
+                    <!-- Campos para Corporate -->
+                            <StackLayout  Padding="0,20" IsVisible="{Binding IsCorporate}">
+                        <Entry Placeholder="Company Name" Text="{Binding CompanyName, Mode=TwoWay}" />
+                        <Entry Placeholder="Billing Email" Text="{Binding BillingEmail, Mode=TwoWay}" />
+                        <Entry Placeholder="Billing Day" Text="{Binding BillingDay, Mode=TwoWay}"  Keyboard="Numeric"  MaxLength="2"/>
+                    </StackLayout>
+
+                    <!-- Campos para Personal -->
+                            <StackLayout Padding="0,20"  IsVisible="{Binding IsPersonal}">
+                        <Entry Placeholder="Cardholder Name" Text="{Binding CardholderName, Mode=TwoWay}" />
+
+                        <Entry Placeholder="Card Number" Text="{Binding CardNumber, Mode=TwoWay}"  Keyboard="Numeric"/>
+
+                        <Entry Placeholder="Expiration Date (MM/YY)" Text="{Binding ExpirationDate, Mode=TwoWay}" />
+
+                        <Entry Placeholder="CVV" Text="{Binding Cvv, Mode=TwoWay}" IsPassword="True" Keyboard="Numeric" MaxLength="5" />
+                    </StackLayout>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
             <Button Text="Register" Command="{Binding RegisterCommand}" />
-    </VerticalStackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label Text="Have a account? "/>
+
+                <Label Text=" Sign in "  TextColor="PaleVioletRed" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Text="."/>
+            </HorizontalStackLayout>
+ 
+
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

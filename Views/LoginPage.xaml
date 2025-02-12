@@ -5,13 +5,14 @@
              xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
              x:DataType="vm:LoginViewModel"
              x:Class="CAMAUIGardenCentreApp.Views.LoginPage"
+             BackgroundColor="{StaticResource Background}"
              Title="GARDEN CENTRE APP">
     
     <VerticalStackLayout Padding="25"
                          Spacing="25"
                          HorizontalOptions="Center">
         
-        <Label HorizontalTextAlignment="Center" Text="Login" Margin="10" FontSize="Header"/>
+        <Label HorizontalTextAlignment="Center" Text="Sign-in" Margin="10" FontSize="Header"/>
 
         <Entry Placeholder="Name" Text="{Binding Name}" />
         <Entry Placeholder="Phone" Text="{Binding Phone}" />
@@ -27,7 +28,7 @@
                     <TapGestureRecognizer Command="{Binding RegisterCommand}" />
                 </Label.GestureRecognizers>
             </Label>
-            <Label Text=" ."/>
+            <Label Text="."/>
         </HorizontalStackLayout>
        
 

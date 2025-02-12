@@ -1,7 +1,5 @@
 ﻿using CAMAUIGardenCentreApp.Services;
 using CAMAUIGardenCentreApp.ViewModels;
-using CAMAUIGardenCentreApp.Models;
-using System.Collections.ObjectModel;
 
 
 namespace CAMAUIGardenCentreApp.Views;
@@ -9,7 +7,6 @@ namespace CAMAUIGardenCentreApp.Views;
 public partial class MainPage : ContentPage
 {
 
-    private readonly AuthService _authService;
     private readonly MainViewModel _viewModel;
 
     public MainPage(AuthService authService, MainViewModel viewModel)

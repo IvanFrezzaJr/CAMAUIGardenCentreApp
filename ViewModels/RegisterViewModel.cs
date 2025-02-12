@@ -271,5 +271,11 @@ namespace CAMAUIGardenCentreApp.ViewModels
             }
         }
 
+
+        [RelayCommand]
+        private async void OnLogin()
+        {
+            await Shell.Current.GoToAsync("//LoginPage");
+        }
     }
 }

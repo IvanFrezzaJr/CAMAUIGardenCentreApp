@@ -19,7 +19,8 @@ namespace CAMAUIGardenCentreApp.Data
         public DatabaseContext()
         {
             // Calls the method to check and delete the database if it exists
-            //DeleteDatabaseIfExists().Wait();
+            // comment this method to reuse the database
+            DeleteDatabaseIfExists().Wait();
         }
 
         // Method to delete the database if it already exists

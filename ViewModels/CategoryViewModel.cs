@@ -94,7 +94,12 @@ public partial class CategoryViewModel : ObservableObject
     [RelayCommand]
     private async Task GoToCartAsync()
     {
-        await Shell.Current.GoToAsync(nameof(BasketPage));
+        if (Shell.Current.CurrentPage is BasketPage)
+            return;
+
+        await Shell.Current.GoToAsync("BasketPage");
+
+        Shell.Current.FlyoutIsPresented = false;
     }
 
 
@@ -102,14 +107,24 @@ public partial class CategoryViewModel : ObservableObject
     [RelayCommand]
     private async Task GoToProfileAsync()
     {
-        await Shell.Current.GoToAsync(nameof(ProfilePage));
+        if (Shell.Current.CurrentPage is ProfilePage)
+            return;
+
+        await Shell.Current.GoToAsync("ProfilePage");
+
+        Shell.Current.FlyoutIsPresented = false;
     }
 
 
     [RelayCommand]
     private async Task GoToCategoryAsync()
     {
-        await Shell.Current.GoToAsync(nameof(CategoryPage));
+        if (Shell.Current.CurrentPage is CategoryPage)
+            return;
+
+        await Shell.Current.GoToAsync("//CategoryPage");
+
+        Shell.Current.FlyoutIsPresented = false;
     }
 
 }

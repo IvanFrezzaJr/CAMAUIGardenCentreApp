@@ -10,7 +10,7 @@ namespace CAMAUIGardenCentreApp.ViewModels;
 
 public partial class LoginViewModel : ObservableObject
 {
-    // Propriedades observáveis (notificam a View quando alteradas)
+
     [ObservableProperty]
     private string _name;
 
@@ -27,16 +27,15 @@ public partial class LoginViewModel : ObservableObject
     [RelayCommand]
     private async void OnLogin()
     {
-        // Implemente sua lógica de autenticação aqui
+
         if (await _authService.Authenticate(Name, Phone))
         {
             _authService.Login();
-            // Navega para a página principal
+
             await Shell.Current.GoToAsync("//MainPage");
         }
         else
         {
-            // Exibe uma mensagem de erro
             Application.Current.MainPage.DisplayAlert("Error", "Invalid email or password", "OK");
         }
     }
@@ -44,7 +43,7 @@ public partial class LoginViewModel : ObservableObject
     [RelayCommand]
     private async void OnRegister()
     {
-        await Shell.Current.GoToAsync("RegisterPage");
+        await Shell.Current.GoToAsync("//RegisterPage");
     }
 
 
