@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CAMAUIGardenCentreApp.Views.DetailPage"
+             xmlns:model="clr-namespace:CAMAUIGardenCentreApp.Models"
+             xmlns:vm="clr-namespace:CAMAUIGardenCentreApp.ViewModels"
+             x:DataType="vm:DetailViewModel"
+             BackgroundColor="{StaticResource Background}"
+             Title="GARDEN CENTRE APP">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Category"
+             IconImageSource="category_icon.png"
+             Command="{Binding GoToCategoryCommand}" />
+        <ToolbarItem Text="Cart"
+                     IconImageSource="shopping_cart_icon.png"
+                     Command="{Binding GoToCartCommand}" />
+        <ToolbarItem Text="Profile"
+             IconImageSource="profile_icon.png"
+             Command="{Binding GoToProfileCommand}" />
+    </ContentPage.ToolbarItems>
+
+
+    <Grid RowDefinitions="*, Auto">
+        
+        <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Always">
+            <VerticalStackLayout Padding="10">
+                <!-- Product List -->
+                <CollectionView  Grid.Row="0"
+                    x:Name="MainCollectionView" 
+                     ItemsSource="{Binding Products}">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout x:Name="GridLayout" Orientation="Vertical" Span="2"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Product">
+                            <VerticalStackLayout
+                    Padding="0,10"
+                    Margin="0,10"
+                    HorizontalOptions="Center">
+                                <Image Source="{Binding ImageUrl}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill"/>
+                                <Label Margin="0,5" Text="{Binding Name}" FontSize="16" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                                <Label Margin="0,10" Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="16" TextColor="Green" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                                <Button Text="Add to Cart"
+                        Margin="5,0"
+                        HeightRequest="25"
+                        FontSize="12"
+                        CornerRadius="2"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DetailViewModel}}, Path=AddToCartCommand}" 
+                        CommandParameter="{Binding}" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <VerticalStackLayout 
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                                <Label Text="No Products Found"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+
+
+        <!-- Cart button -->
+        <Border Grid.Row="1"
+      Background="DarkOrange"
+          StrokeThickness="0"
+          VerticalOptions="End"
+          HorizontalOptions="FillAndExpand"
+          IsVisible="{Binding HasItemsInCart}">
+            <StackLayout Orientation="Horizontal"
+                   VerticalOptions="Center"
+                   HorizontalOptions="FillAndExpand"
+                   Padding="10">
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToCartCommand}" />
+                </StackLayout.GestureRecognizers>
+
+                <Grid VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="{Binding CartItemCount, StringFormat='You have {0} items in your Cart.'}"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Start"
+                FontSize="14"
+                TextColor="White" 
+                Grid.Column="0" />
+
+                    <ImageButton Source="shopping_cart_icon_white.png"
+                WidthRequest="20" 
+                HeightRequest="20"
+                    BackgroundColor="Transparent"
+                    Grid.Column="1"
+                    VerticalOptions="Center" />
+                </Grid>
+            </StackLayout>
+        </Border>
+
+    </Grid>
+
+
+</ContentPage>

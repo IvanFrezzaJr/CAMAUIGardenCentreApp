@@ -85,7 +85,12 @@
                         Padding="0,10"
                         Margin="0,10"
                         HorizontalOptions="Center">
-                        <Image Source="{Binding ImageUrl}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill"/>
+                                <Image Source="{Binding ImageUrl}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=OpenDetailPageCommand}" 
+                                            CommandParameter="{Binding}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
                                 <Label Margin="0,5" Text="{Binding Name}" FontSize="16" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                                 <Label Margin="0,10" Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="16" TextColor="Green" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
                         <Button Text="Add to Cart"

@@ -21,6 +21,7 @@ namespace CAMAUIGardenCentreApp
             Routing.RegisterRoute(nameof(SuccessPage), typeof(SuccessPage));
             Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
             Routing.RegisterRoute(nameof(ProductListPage), typeof(ProductListPage));
+            Routing.RegisterRoute(nameof(DetailPage), typeof(DetailPage));
         }
     }
 }

@@ -149,6 +149,30 @@ public partial class MainViewModel : BaseViewModel
     }
 
 
+    [RelayCommand]
+    private async Task OpenDetailPage(Product productItem)
+    {
+
+        if (productItem != null)
+        {
+
+
+            var productRaw = await _productService.GetProductById(productItem.Id);
+
+            if (productRaw != null)
+            {
+                Product product = productRaw.FirstOrDefault();
+
+                await Shell.Current.GoToAsync($"{nameof(DetailPage)}?product_id={product.Id}");
+
+            }
+
+            Debug.WriteLine($"category not found: {productItem.Name}");
+
+        }
+    }
+
+
     partial void OnPositionChanged(int oldValue, int newValue)
     {
         // Corrige flickering forçando a atualização da posição

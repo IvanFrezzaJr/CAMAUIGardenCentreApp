@@ -1,6 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
+using CAMAUIGardenCentreApp.Data;
 using CAMAUIGardenCentreApp.Models;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
@@ -11,22 +16,20 @@ using CAMAUIGardenCentreApp.Services;
 namespace CAMAUIGardenCentreApp.ViewModels;
 
 
-public partial class ProductListViewModel : BaseViewModel
+
+public partial class DetailViewModel : BaseViewModel
 {
     private readonly ProductService _productService;
     private readonly BasketService _basketService;
 
 
-    public ProductListViewModel(ProductService productService, BasketService basketService)
+
+    public DetailViewModel(ProductService productService, BasketService basketService)
     {
         _productService = productService;
         _basketService = basketService;
 
     }
-
-
-    [ObservableProperty]
-    private ObservableCollection<Product> _products = new();
 
     [ObservableProperty]
     private bool _hasItemsInCart;
@@ -34,37 +37,23 @@ public partial class ProductListViewModel : BaseViewModel
     [ObservableProperty]
     private int _cartItemCount;
 
-    [ObservableProperty]
-    private string _categoryName;
 
     [ObservableProperty]
-    private string _categoryImage;
+    private ObservableCollection<Product> _products = new();
 
-    [ObservableProperty]
-    private string _categoryDescription;
-
-
-
-    public async Task LoadProductsByCategoryAsync(int categoryId)
+    public async Task LoadProductByIdAsync(int productId)
     {
 
         //await _loadingService.ShowLoadingWhile(async () =>
         await ExecuteAsync(async () =>
         {
-            if (categoryId <= 0)
+            if (productId <= 0)
                 return;
 
             IsBusy = true;
             Products.Clear();
 
-            var castegoryResult = await _productService.GeCategoryById(categoryId);
-            Category? category = castegoryResult.FirstOrDefault();
-            CategoryName = category.Name;
-            CategoryImage = category.ImageUrl;
-            CategoryDescription = category.Description;
-
-
-            var products = await _productService.GetProductsByCategoryId(categoryId);
+            var products = await _productService.GetProductById(productId);
             if (products is not null && products.Any())
             {
                 Products ??= new ObservableCollection<Product>();
@@ -81,6 +70,8 @@ public partial class ProductListViewModel : BaseViewModel
 
         }, "Fetching products...");
     }
+
+
 
     [RelayCommand]
     private async Task AddToCartAsync(Product product)
@@ -103,12 +94,14 @@ public partial class ProductListViewModel : BaseViewModel
         CartItemCount = _basketService.GetCartItems().Count();
     }
 
+
+
+
     [RelayCommand]
     private async Task GoToCartAsync()
     {
         await Shell.Current.GoToAsync(nameof(BasketPage));
     }
-
 
     [RelayCommand]
     private async Task GoToProfileAsync()

@@ -32,6 +32,13 @@ public class ProductService
       
     }
 
+    public async Task<IEnumerable<Product>> GetProductById(int productId)
+    {
+        return await _context.GetFileteredAsync<Product>(p => p.Id == productId);
+
+    }
+
+
     public async Task<IEnumerable<Category>> GeCategoryById(int categoryId)
     {
         return await _context.GetFileteredAsync<Category>(p => p.Id == categoryId);
